@@ -37,8 +37,8 @@ macro brightnessFromRGB R G B output
 endmacro
 
 define_parameter visSections 					'Visualise sections' 0 0 1
-define_parameter textBrightness 				'Text Brightness' 100 50 150
-define_parameter colorTrackLabels 				'Custom Color Track Labels' 1 0 1
+define_parameter textBrightness 				'Text Brightness' 150 50 150
+define_parameter colorTrackLabels 				'Custom Color Track Labels' 0 0 1
 define_parameter customColorDepthParam 			'Custom Color Strength' 30 0 100
 define_parameter selectStrength 				'Selection Overlay Strength' 25 0 100
 define_parameter selInvertLabels 				'Selection Invert Labels' 1 0 1
@@ -181,7 +181,7 @@ endmacro
 define_parameter sectionMargin 					'Section Margins' 6 0 12
 define_parameter xMargin 						'X-Axis spacing' 4 2 12
 define_parameter yMargin 						'Y-Axis spacing' 6 2 12
-define_parameter tcpfolderIndentSize			'TCP Folder Indent' 20 0 40
+define_parameter tcpfolderIndentSize			'TCP Folder Indent' 5 0 40
 define_parameter tcpfolderBalanceType			'TCP Folder Balance Type' 0 0 2
 define_parameter tcpDivOpacity 					'TCP Div Opacity' 80 0 255
 define_parameter tcpBgColR 						'TCP background colour' 129 0 255
@@ -436,7 +436,7 @@ set tcp.recmon									!tcpLabelBlock{2} [0] + [tcp.recarm tcp.recarm] + [tcp.re
 set tcp.label									!tcpLabelBlock{2} [0] + [tcp.recmon tcp.recmon] + [tcp.recmon{2}] * Scale - [0 0 thisTcpLabelLength{0} 20] [0 0 6] 
 	set tcp.label.margin 						* Scale [6 0 2 0]
 	set tcp.label.font 							+ Layout##thisLayout##-tcpLabelSize{0} Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
-	set tcp.label.color 						?recarm [255 80 100] ?trackcolor_valid ?colorTrackLabels cColorTextOnDark * textBrightnessMult{0} [200 200 200] * textBrightnessMult{0} [200 200 200] 
+	set tcp.label.color 						?recarm [255 80 100] ?trackcolor_valid ?colorTrackLabels cColorTextOnDark * textBrightnessMult{0} [200 200 200] * textBrightnessMult{0} [200 200 200]
 	set tcp.label.color							?selInvertLabels{0} ?track_selected ?recarm [180 0 10] [38 38 38] . .
 set tcp.volume									!tcpLabelBlock{2} [0] + [tcp.label tcp.label] + [tcp.label{2}] * Scale [0 0 Layout##thisLayout##-tcpVolumeLength{0} 20] 
 	set thisVolL								* Scale Layout##thisLayout##-tcpVolumeLength{0}
@@ -1044,7 +1044,7 @@ endLayout
 
 ;-- GLOABL TCP PARAMS --
 
-define_parameter mcpfolderIndentSize		'MCP Folder Indent' 20 0 40
+define_parameter mcpfolderIndentSize		'MCP Folder Indent' 2 0 40
 define_parameter mcpDivOpacity 				'MCP Div Opacity' 80 0 255
 define_parameter mcpBgColR 					'MCP background colour' 129 0 255
 define_parameter mcpBgColG 					'MCP background colour G' 137 0 255
@@ -1318,7 +1318,7 @@ custom mcp.custom.mcpDarkBox
 set mcp.custom.mcpDarkBox					mcpForm{0}==3 + + [sidebarWidth mcp.custom.sectionPan w h] [0 mcp.custom.sectionPan{3}] \
 												* -1 + + [0 0 mcp.custom.sectionButtons sectionBottomH] [0 0 sidebarWidth mcp.custom.sectionPan{1}] [0 0 0 mcp.custom.sectionPan{3}]
 set standardDarkBoxMinH						- h + + maxSectionBottomH mcp.custom.sectionPan{1} mcp.custom.sectionPan{3}												
-set mcp.volume.label                     	mcpForm{0}==3 !Layout##thisLayout##-verboseMcp{0} [0] + [mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox] * Scale [0 0 0 20]
+set mcp.volume.label                     	mcpForm{0}==3 !1 [0] + [mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox] * Scale [0 0 0 20]
 set mcp.meter								mcpForm{0}==3 + + * Scale [4 6 -32 -36] [mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox] \
 												* [0 1 0 -1] [0 mcp.volume.label{3} 0 mcp.volume.label{3}]
 set mcp.volume								mcpForm{0}==3 + + [mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox 0 mcp.custom.mcpDarkBox] + [mcp.custom.mcpDarkBox{2}] * Scale [-26 6 25 -36] \
@@ -1357,7 +1357,7 @@ set mcp.recmon								mcpForm{0}==1 ?Layout##thisLayout##-mcpStripShowRecmon{0} 
 
 
 set mcp.custom.mcpDarkBox.color 			?visSections{0} [0 0 0 0 200 200 0] [0 0 0 0 38 38 38]
-set mcp.volume.label.color            		* textBrightnessMult{0} [150 150 150]
+set mcp.volume.label.color            		* textBrightnessMult{0} [84 165 120]
 	  set mcp.volume.label.font				+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	  set mcp.volume.label.margin           * [Scale Scale Scale Scale 1] [0 6 0 0 0.5]
 set mcp.meter.vu.div                   		* Scale [1 1]
@@ -1429,9 +1429,9 @@ set mcp.extmixer.position					mcp.extmixer.mode{0}>0 + mcp.custom.sidebarBg * Sc
 												mcpDivOpacity{0}>0 [2 0 -4 0] [1 0 -2 0]
 set mcp.fxparm.font 						+ * Scale [1 24] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set mcp.fxparm.margin					* [Scale Scale Scale Scale 1 Scale Scale Scale] [3 0 4 6 0.5 0 0 2]												
-set mcp.fxlist.font 						+ * Scale [1 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+set mcp.fxlist.font 						+ * Scale [2 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set mcp.fxlist.margin					* [Scale Scale Scale Scale 1 Scale Scale Scale] [3 0 4 6 0.5 0 20 2]
-set mcp.sendlist.font 						+ * Scale [1 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]	
+set mcp.sendlist.font 						+ * Scale [2 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]	
 	set mcp.sendlist.margin 				* [Scale Scale Scale Scale 1 Scale Scale Scale] [2 0 0 0 0 0 0 0 2]
 front mcp.extmixer
 	
@@ -1712,9 +1712,9 @@ masterMcpFollow master.mcp.env						20 masterMcpEnvH{0} 0 0
 masterMcpFollow master.mcp.menubutton				20 20 0 0
 
 set master.mcp.volume.label							+ [master.mcp.custom.darkBox master.mcp.custom.darkBox master.mcp.custom.darkBox 0] !masterMcpVals{0} [0] * Scale [0 0 0 20]
-	set master.mcp.volume.label.font				+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set master.mcp.volume.label.font				+ [2] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set master.mcp.volume.label.margin				* [Scale Scale Scale Scale 1] [0 0 0 0 0.5]
-	set master.mcp.volume.label.color				* textBrightnessMult{0} [150 150 150]
+	set master.mcp.volume.label.color				* textBrightnessMult{0} [84 165 120]
 set master.mcp.meter								+ master.mcp.custom.darkBox * Scale + !masterMcpLabels{0} [0 6 -24 -12] [0 6 -24 -26] !masterMcpVals{0} [0] [0 14 0 -14]
 	set master.mcp.meter.vu.div                   	* Scale [1 1]
 	set master.mcp.meter.readout.color            	!masterMcpMeterVals{0} [0 0 0 0 0 0 0 0] * textBrightnessMult{0} [150 150 150]
@@ -1733,9 +1733,9 @@ custom master.mcp.custom.masterMcpNameBg
 set master.mcp.custom.masterMcpNameBg				master.mcp.label
 set master.mcp.custom.masterMcpNameBg.color 		?selInvertLabels{0} ?track_selected [0 0 0 0 255 255 255 200] [0 0 0 0 38 38 38] [0 0 0 0 38 38 38]
 front master.mcp.custom.masterMcpNameBg	master.mcp.label
-set master.mcp.fxlist.font 							+ * Scale [1 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+set master.mcp.fxlist.font 							+ * Scale [2 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set master.mcp.fxlist.margin					* [Scale Scale Scale Scale 1 Scale Scale Scale] [3 0 4 6 0.5 0 20 2]
-set master.mcp.sendlist.font 						+ * Scale [1 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]	
+set master.mcp.sendlist.font 						+ * Scale [2 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]	
 	set master.mcp.sendlist.margin 					* [Scale Scale Scale Scale 1 Scale Scale Scale] [2 0 0 0 0 0 0 0 2]
 set master.mcp.fxparm.font 							+ * Scale [1 24] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
  	set master.mcp.fxparm.margin					* [Scale Scale Scale Scale 1 Scale Scale Scale] [3 0 4 6 0.5 0 0 2]	
@@ -1834,7 +1834,7 @@ set trans.custom.sectionLeft 				w>sectionLeftBreakW{0} .  + * Scale [0 0 transM
 set trans.custom.sectionStatus				w>sectionLeftBreakW{0} . * Scale + [transMargin{0} transMargin{0}] [0 36 transStatusWidth{0} 36]
 
 ; do the above but for centered mode
-set sectionLeftBreakW						?trans_center + trans.custom.sectionStatus{2} * 2 transMargin{0} 
+set sectionLeftBreakW						?trans_center + trans.custom.sectionStatus{2} * 2 transMargin{0}
 set trans.custom.sectionLeft				?trans_center trans.custom.sectionButtons{0}<sectionLeftBreakW{0} + [0 0 0 transMargin{0}] [. . . 72] .
 set trans.custom.sectionStatus				?trans_center trans.custom.sectionButtons{0}<sectionLeftBreakW{0} + * 0.5 - [w] * Scale [transStatusWidth{0}] * Scale + [0 transMargin{0}] [0 36 transStatusWidth{0} 36] .
 
@@ -1872,9 +1872,9 @@ transFollow trans.custom.sectionRate 		transSectionRateW{0} 36
 	set trans.rate							!trans.custom.sectionRate{2} [0] transRateFaderWidth{0}>rateFaderSwapW{0} + + [trans.custom.sectionRate trans.custom.sectionRate] * Scale [-40 2 80 16] * 0.5 [trans.custom.sectionRate{2}] \
 												+ + [trans.rate.fader trans.rate.fader] * Scale [0 0 60 36] [trans.rate.fader{2}}]
 	set trans.rate.margin 					[0 0 0 0 0]
-	set trans.rate.font						+ [2] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
-	set trans.rate.color 					* textBrightnessMult{0} [160 160 160] 
-	set trans.rate.fader.color 				[180 180 180 255] ; pointer line of the knob
+	set trans.rate.font						+ [3] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set trans.rate.color 					* textBrightnessMult{0} [160 160 160]
+	set trans.rate.fader.color 				[255 255 255 255] ; pointer line of the knob
 
 set hide_trans.automode 					0
 transFollow trans.automode 					58 36
@@ -1882,11 +1882,11 @@ set hide_trans.custom.sectionBpm 			0
 transFollow trans.custom.sectionBpm			60 36
 	set trans.custom.sectionBpm.color		?visSections [0 0 0 0 100 100 255 150] [0 0 0 1 0 0 0 0]	
 	set trans.bpm.tap 						+ [trans.custom.sectionBpm trans.custom.sectionBpm trans.custom.sectionBpm] * Scale [0 0 0 20]
-	set trans.bpm.tap.font  				+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set trans.bpm.tap.font  				+ [2] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set trans.bpm.tap.color 				* textBrightnessMult{0} [160 160 160]
 	set trans.bpm.tap.margin 				+ * Scale [0 2 0 0] [0 0 0 0 0.5]		
 	set trans.bpm.edit 						+ + [trans.bpm.tap trans.bpm.tap trans.bpm.tap] [0 trans.bpm.tap{3}] * Scale [0 0 0 16]
-	set trans.bpm.edit.font  				+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set trans.bpm.edit.font  				+ [2] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set trans.bpm.edit.color 				trans.bpm.tap.color 
 	set trans.bpm.edit.margin 				+ * Scale [0 0 0 6] [0 0 0 0 0.5]	
 	
@@ -1900,8 +1900,8 @@ transFollow trans.custom.sectionSig			40 36
 set hide_trans.custom.sectionSel 			0
 transFollow trans.custom.sectionSel			transSelectionWidth{0} 36
 	set trans.sel							+ trans.custom.sectionSel * Scale [10 10 -10 -20]						
-	set trans.sel.color      	  			* textBrightnessMult{0} [160 160 160] 
-	set trans.sel.font        	 			+ [3] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set trans.sel.color      	  			* textBrightnessMult{0} [160 160 160]
+	set trans.sel.font        	 			+ [4] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set trans.sel.margin					[4 30 4 10 0] ; ????
 
 endMacro
