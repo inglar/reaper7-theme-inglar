@@ -429,8 +429,8 @@ attachProxy 10
 					
 custom tcp.custom.labelBlockBg 					'' 0 '' 'tcp_labelBlock_bg'
 	custom tcp.custom.labelBlockBgSel			'' 0 '' 'tcp_labelBlock_bg_sel'
-	set tcp.custom.labelBlockBg					+ [0 0 -2] ?selInvertLabels{0} ?track_selected [0] tcpLabelBlock tcpLabelBlock
-	set tcp.custom.labelBlockBgSel				+ [0 0 -2] ?selInvertLabels{0} ?track_selected tcpLabelBlock [0] [0]
+	set tcp.custom.labelBlockBg					+ * Scale [0 0 -2] ?selInvertLabels{0} ?track_selected [0] tcpLabelBlock tcpLabelBlock
+	set tcp.custom.labelBlockBgSel				+ * Scale [0 0 -2] ?selInvertLabels{0} ?track_selected tcpLabelBlock [0] [0]
 set tcp.recarm 									!tcpLabelBlock{2} [0] + [tcpLabelBlock tcpLabelBlock] * Scale [0 0 24 20]
 set tcp.recmon									!tcpLabelBlock{2} [0] + [tcp.recarm tcp.recarm] + [tcp.recarm{2}] * Scale [0 0 tcpRecmonW{0} 20] 
 set tcp.label									!tcpLabelBlock{2} [0] + [tcp.recmon tcp.recmon] + [tcp.recmon{2}] * Scale - [0 0 thisTcpLabelLength{0} 20] [0 0 6] 
@@ -1044,7 +1044,7 @@ endLayout
 
 ;-- GLOABL TCP PARAMS --
 
-define_parameter mcpfolderIndentSize		'MCP Folder Indent' 20 0 40
+define_parameter mcpfolderIndentSize		'MCP Folder Indent' 10 0 40
 define_parameter mcpDivOpacity 				'MCP Div Opacity' 80 0 255
 define_parameter mcpBgColR 					'MCP background colour' 129 0 255
 define_parameter mcpBgColG 					'MCP background colour G' 137 0 255
@@ -1079,8 +1079,8 @@ macro drawMcp thisLayout Scale
 
 clear mcp.*
 
-set thisMcpfolderIndent						* Scale * folderdepth mcpfolderIndentSize
-set hAfterIndent							/ - h thisMcpfolderIndent{0} Scale
+set thisMcpfolderIndent						* folderdepth mcpfolderIndentSize
+set hAfterIndent							- h * Scale thisMcpfolderIndent{0}
 
 set mcpStripInputHeight						Layout##thisLayout##-mcpStripInputHeight{0}==30 0 Layout##thisLayout##-mcpStripInputHeight ; interpret that minimum height means hide it
 set mcpStripVolumeHeight					* Scale Layout##thisLayout##-mcpStripVolumeHeight==80 20 Layout##thisLayout##-mcpStripVolumeHeight ; convert to a knob below 80
@@ -1097,14 +1097,20 @@ set sidebarWidth							* Scale ?addSidebar{0} Layout##thisLayout##-sidebarWidth 
 
 ;-- SECTIONS --
 
+; custom mcp.custom.measure
+	; set mcp.custom.measure.color [0 0 0 0 255 0 0 255]
+	; set mcp.custom.measure [0 0 20 hAfterIndent{0}]
+	; front mcp.custom.measure
+
+
 custom mcp.custom.mcpDiv
-	set mcp.custom.mcpDiv 					- [0 0 1 h] * Scale [0 0 0 thisMcpfolderIndent]
+	set mcp.custom.mcpDiv 					- [0 0 1 h] * Scale [0 0 0 thisMcpfolderIndent{0}]
 	set mcp.custom.mcpDiv.color 			* Scale [0 0 0 0 0 0 0 mcpDivOpacity{0}]
 
 ; calculate sectionBottom height
-set sectionBottomH							+ * Scale 44 thisMcpfolderIndent{0} 
-set maxSectionBottomH						* Scale + 24 * mcp_maxfolderdepth mcpfolderIndentSize
-set sectionBottomH							?mcpfolderBalanceType{0} + * Scale 22 maxSectionBottomH .
+set sectionBottomH							* Scale + 44 thisMcpfolderIndent{0} 
+set maxSectionBottomH						* Scale + 44 * mcp_maxfolderdepth mcpfolderIndentSize
+set sectionBottomH							?mcpfolderBalanceType{0} maxSectionBottomH  .
 set stripSectionBottomH						* Scale + + 20 Layout##thisLayout##-mcpStripLabelHeight * mcp_maxfolderdepth mcpfolderIndentSize
 
 ; calculate sectionButtons height
@@ -1378,7 +1384,7 @@ custom mcp.custom.mcpIdxBg
 custom mcp.custom.mcp_selectionDot 				'' 0 '' 'tcp_selectionDot'
 custom mcp.custom.mcp_selectionDotSel			'' 0 '' 'tcp_selectionDot_sel'	
 custom mcp.custom.sidebarBg
-set mcpFolderBalance						!mcpfolderBalanceType 0 * Scale * - mcp_maxfolderdepth folderdepth mcpfolderIndentSize
+set mcpFolderBalance						!mcpfolderBalanceType 0  * - mcp_maxfolderdepth folderdepth mcpfolderIndentSize
 
 ; Normal Width
 set mcp.custom.sectionBottom				mcpForm{0}==3 + [0 mcp.custom.sectionButtons mcpWidth sectionBottomH] [0 mcp.custom.mcpDarkBox{3} sidebarWidth]
