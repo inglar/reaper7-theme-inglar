@@ -1364,7 +1364,7 @@ set mcp.recmon								mcpForm{0}==1 ?Layout##thisLayout##-mcpStripShowRecmon{0} 
 
 set mcp.custom.mcpDarkBox.color 			?visSections{0} [0 0 0 0 200 200 0] [0 0 0 0 38 38 38]
 set mcp.volume.label.color            		* textBrightnessMult{0} [84 165 120]
-	  set mcp.volume.label.font				+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	  set mcp.volume.label.font				+ [3] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	  set mcp.volume.label.margin           * [Scale Scale Scale Scale 1] [0 6 0 0 0.5]
 set mcp.meter.vu.div                   		* Scale [1 1]
 	set mcp.meter.readout.color            	!Layout##thisLayout##-mcpMeterReadout{0} [0 0 0 0 0 0 0 0] * textBrightnessMult{0} [100 100 100 255 255 183 171 255]
@@ -1718,7 +1718,7 @@ masterMcpFollow master.mcp.env						20 masterMcpEnvH{0} 0 0
 masterMcpFollow master.mcp.menubutton				20 20 0 0
 
 set master.mcp.volume.label							+ [master.mcp.custom.darkBox master.mcp.custom.darkBox master.mcp.custom.darkBox 0] !masterMcpVals{0} [0] * Scale [0 0 0 20]
-	set master.mcp.volume.label.font				+ [2] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set master.mcp.volume.label.font				+ [3] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set master.mcp.volume.label.margin				* [Scale Scale Scale Scale 1] [0 0 0 0 0.5]
 	set master.mcp.volume.label.color				* textBrightnessMult{0} [84 165 120]
 set master.mcp.meter								+ master.mcp.custom.darkBox * Scale + !masterMcpLabels{0} [0 6 -24 -12] [0 6 -24 -26] !masterMcpVals{0} [0] [0 14 0 -14]
