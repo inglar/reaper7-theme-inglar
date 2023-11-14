@@ -1481,8 +1481,8 @@ define_parameter LayoutA-sidebarWidth				'Layout A - Sidebar Width' 88 34 300
 define_parameter LayoutA-mcpNchanGrow				'Layout A - Mixer nChan Grow' 2 0 20
 define_parameter LayoutA-mcpNchanGrowSel			'Layout A - Selected Mixer nChan Grow' 2 0 20
 define_parameter LayoutA-mcpNchanGrowRecarm			'Layout A - Armed Mixer nChan Grow' 2 0 20
-define_parameter LayoutA-mcpMeterVals				'Layout A - Mixer Meter Values' 0 0 1
-define_parameter LayoutA-mcpMeterValsSel			'Layout A - Selected Mixer Meter Values' 0 0 1
+define_parameter LayoutA-mcpMeterVals				'Layout A - Mixer Meter Values' 1 0 1
+define_parameter LayoutA-mcpMeterValsSel			'Layout A - Selected Mixer Meter Values' 1 0 1
 define_parameter LayoutA-mcpMeterValsRecarm			'Layout A - Armed Mixer Meter Values' 1 0 1
 define_parameter LayoutA-mcpNormalDarkButtons		'Layout A - Dark Under Buttons' 1 0 1
 define_parameter LayoutA-mcpNormalShowSecIn			'Layout A - mcpNormalShowSecIn' 300 0 500
