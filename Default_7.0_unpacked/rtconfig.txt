@@ -242,7 +242,7 @@ custom tcp.custom.sectionNumber
 	brightnessFromRGB 							trackcolor_r trackcolor_g trackcolor_b tcpSectionNumberBrightness
 	set tcp.trackidx							?supercollapsedH{0} [0] + tcp.custom.sectionNumber * Scale folderstate==1 [0 16 0 -16] folderstate<0 [0 -10 0 10] [0]
 	set tcp.trackidx.margin						+ [0 0 0 0 0.5] trackidx<100 - * 0.5 + ?selDot{0} [0 0 8] [0] [0 tcp.trackidx{3} 0 tcp.trackidx{3}] [0 10 0 10] [3 0 7 0]
-	set tcp.trackidx.color 						tcpSectionNumberBrightness{0}>128 [0 0 0 255 0 0 0 0]  [255 255 255 255 0 0 0 0] 
+	set tcp.trackidx.color 						tcpSectionNumberBrightness{0}>128 - [150 150 150] * textBrightnessMult{0} [100 100 100]  + * textBrightnessMult{0} [110 110 110] [120 120 120] 
 	set tcp.trackidx.font						trackidx<100 Scale{0}==1 [3] Scale{0}==1.5 [8] [13] Scale{0}==1 [1] Scale{0}==1.5 [6] [11]
 set tcp.dragdropinfo 							+ [0 tcp.custom.sectionNumber{2}] * Scale [thisTcpfolderIndent thisTcpfolderIndent]	
 custom tcp.custom.indentInfill
@@ -1042,7 +1042,7 @@ endLayout
 #<
 #>---------------------------------- THE MIXER ----------------------------------------
 
-;-- GLOABL TCP PARAMS --
+;-- GLOABL MCP PARAMS --
 
 define_parameter mcpfolderIndentSize		'MCP Folder Indent' 10 0 40
 define_parameter mcpDivOpacity 				'MCP Div Opacity' 80 0 255
@@ -1841,7 +1841,7 @@ set trans.custom.sectionStatus				w>sectionLeftBreakW{0} . * Scale + [transMargi
 
 ; do the above but for centered mode
 set sectionLeftBreakW						?trans_center + trans.custom.sectionStatus{2} * 2 transMargin{0} 
-set trans.custom.sectionLeft				?trans_center trans.custom.sectionButtons{0}<sectionLeftBreakW{0} + [0 0 0 transMargin{0}] [. . . 72] .
+set trans.custom.sectionLeft				?trans_center trans.custom.sectionButtons{0}<sectionLeftBreakW{0} * Scale + [0 0 0 transMargin{0}] [. . . 72] .
 set trans.custom.sectionStatus				?trans_center trans.custom.sectionButtons{0}<sectionLeftBreakW{0} + * 0.5 - [w] * Scale [transStatusWidth{0}] * Scale + [0 transMargin{0}] [0 36 transStatusWidth{0} 36] .
 
 ; populate status
@@ -1859,7 +1859,7 @@ custom trans.custom.sectionSel				'' 0 '' 'transSectionBg'
 	set transSectionRateW					+ transRateFaderWidth{0} transRateFaderWidth{0}>rateFaderSwapW{0} 0 60
 	set sectionRightW						- w + + trans.custom.sectionButtons{2} trans.custom.sectionStatus{2} * Scale + transMargin transMargin
 	set transDoubleH						* Scale + 72 transMargin
-	set trans.custom.sectionRight			h>transDoubleH{0} + [0 0 w h] * Scale + [0 trans.custom.sectionLeft{3}] [0 transMargin{0}] \
+	set trans.custom.sectionRight			h>transDoubleH{0} + [0 0 w h] + [0 trans.custom.sectionLeft{3}] * Scale [0 transMargin{0}] \
 															  - + [w 0 sectionRightW{0}] * Scale [0 0 0 36] [sectionRightW{0}]
 	set trans.custom.sectionRight			?trans_center h>transDoubleH{0} . \
 											- + [trans.custom.sectionButtons . w .] * [1 0 1] [trans.custom.sectionButtons{2} 0 trans.custom.sectionButtons{2}] [0 0 trans.custom.sectionButtons{0}]
@@ -2012,3 +2012,6 @@ layout_dpi_translate 	'150%_C' 	1.74 	'200%_C'
 layout_dpi_translate 	'' 			1.34 	'150%_A'
 layout_dpi_translate 	'' 			1.74 	'200%_A'
 
+
+
+define_parameter themeVersionDate		'Theme Version Date' 231109 231109 231109
