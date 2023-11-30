@@ -528,7 +528,9 @@ custom tcp.custom.tcpBgBox
 assignLoc tcp.fxparm Layout##thisLayout##-tcpFxparmLocation
 	set tcp.fxparm.margin 						* Scale [3 0 4 0 0 0 0 4]
 	set Layout##thisLayout##-tcpFxparmWidth		Layout##thisLayout##-tcpFxparmWidth{0}>tcp.fxparm{2} tcp.fxparm{2}
-	set tcp.fxparm.font 						+ * Scale [0 24 60 Layout##thisLayout##-tcpFxparmWidth{0}] + [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set tcp.fxparm.font 						+ * Scale [0 24 60 Layout##thisLayout##-tcpFxparmWidth{0}] Scale{0}==1 [1] Scale{0}==1.5 [6] [11]
+		set tcp.fxparm.font 					os_type==0 Scale{0}==2.0 + [0 0 0 0 -4]
+		set tcp.fxparm.font 					os_type==0 Scale{0}==1.5 + [0 0 0 0 -3]
 	set tcp.fxparm.visflags						[1 Layout##thisLayout##-tcpFxparmVisflag1 Layout##thisLayout##-tcpFxparmVisflag2]
 
 assignLoc tcp.fxlist Layout##thisLayout##-tcpFxLocation
@@ -1433,8 +1435,10 @@ set mcp.folder								folderstate<0 + + [mcp.custom.mcpIdxBg mcp.custom.mcpIdxBg
 set mcp.custom.sidebarBg.color				[0 0 0 0 38 38 38]		
 set mcp.extmixer.position					mcp.extmixer.mode{0}>0 + mcp.custom.sidebarBg * Scale [2 0 -2] \
 												mcpDivOpacity{0}>0 [2 0 -4 0] [1 0 -2 0]
-set mcp.fxparm.font 						+ * Scale [1 24] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
-	set mcp.fxparm.margin					* [Scale Scale Scale Scale 1 Scale Scale Scale] [3 0 4 6 0.5 0 0 2]												
+set mcp.fxparm.font 						+ * Scale [0 24] Scale{0}==1 [1] Scale{0}==1.5 [6] [11]
+	set mcp.fxparm.font os_type==0 Scale{0}==2.0 + [0 0 0 0 -4]
+	set mcp.fxparm.font os_type==0 Scale{0}==1.5 + [0 0 0 0 -3]
+	set mcp.fxparm.margin					* Scale [3 0 4 0 0 0 0 4]											
 set mcp.fxlist.font 						+ * Scale [1 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set mcp.fxlist.margin					* [Scale Scale Scale Scale 1 Scale Scale Scale] [3 0 4 6 0.5 0 20 2]
 set mcp.sendlist.font 						+ * Scale [1 18 80 80] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]	
