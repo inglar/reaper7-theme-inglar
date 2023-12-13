@@ -1,0 +1,20 @@
+name: Build theme file and create release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: zip -r9 Inglar_7.0.ReaperThemeZip Default_7.0_unpacked Default_7.0_unpacked.ReaperTheme
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "Inglar_7.0.ReaperThemeZip"
