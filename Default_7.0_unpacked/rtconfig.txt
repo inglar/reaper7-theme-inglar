@@ -179,7 +179,7 @@ endmacro
 ;-- GLOABL TCP PARAMS --
 
 define_parameter sectionMargin 					'Section Margins' 6 0 12
-define_parameter xMargin 						'X-Axis spacing' 4 2 12
+define_parameter xMargin 						'X-Axis spacing' 6 2 12
 define_parameter yMargin 						'Y-Axis spacing' 6 2 12
 define_parameter tcpfolderIndentSize			'TCP Folder Indent' 20 0 40
 define_parameter tcpfolderBalanceType			'TCP Folder Balance Type' 0 0 2
@@ -570,11 +570,11 @@ define_parameter LayoutA-tcpFxparmVisflag2 				'Layout A - tcpFxparmVisflag2' 1 
 define_parameter LayoutA-tcpSectionBottomDiv 			'Layout A - tcpSectionBottomDiv' 2 1 3
 define_parameter LayoutA-sectionLeftW 					'Layout A - Left Section Width' 75 46 400
 define_parameter LayoutA-sectionRightW 					'Layout A - Right Section Width' 75 46 400
-define_parameter LayoutA-tcpLabelLength 				'Layout A - TCP Label Length' 100 40 300
+define_parameter LayoutA-tcpLabelLength 				'Layout A - TCP Label Length' 120 40 500
 define_parameter LayoutA-tcpLabelSize 					'Layout A - TCP Label Font Size' 4 1 5
 define_parameter LayoutA-tcpVolumeLength 				'Layout A - TCP Volume Length' 40 40 300
 define_parameter LayoutA-tcpInputFontSize 				'Layout A - TCP Input Font Size' 1 1 5
-define_parameter LayoutA-tcpRecinputLength 				'Layout A - TCP Input Length' 100 40 300
+define_parameter LayoutA-tcpRecinputLength 				'Layout A - TCP Input Length' 100 40 400
 define_parameter LayoutA-tcpFxparmWidth 				'Layout A - FX Parameters Width' 88 50 200
 define_parameter LayoutA-tcpFxMinWidth 					'Layout A - FX Minimum Width' 30 20 200
 define_parameter LayoutA-tcpFxMaxWidth 					'Layout A - FX Maximum Width' 88 20 200
@@ -593,7 +593,7 @@ define_parameter LayoutA-hideTcpInputBlock				'Layout A - Visflag Track Input Bl
 define_parameter LayoutA-hideTcpEnv		 				'Layout A - Visflag Track Env' 1 0 15
 define_parameter LayoutA-hideTcpPhase	 				'Layout A - Visflag Track Phase' 1 0 15
 define_parameter LayoutA-hideTcpLabelsValues			'Layout A - Visflag Track Labels and Values' 8 0 15
-define_parameter LayoutA-hideTcpMeterValues				'Layout A - Visflag Track Meter Values' 8 0 15
+define_parameter LayoutA-hideTcpMeterValues				'Layout A - Visflag Track Meter Values' 4 0 15
 
 drawTcp A 1
 Layout "A"
@@ -622,11 +622,11 @@ define_parameter LayoutB-tcpFxparmVisflag2 				'Layout B - tcpFxparmVisflag2' 1 
 define_parameter LayoutB-tcpSectionBottomDiv 			'Layout B - tcpSectionBottomDiv' 2 1 3
 define_parameter LayoutB-sectionLeftW 					'Layout B - Left Section Width' 75 46 400
 define_parameter LayoutB-sectionRightW 					'Layout B - Right Section Width' 75 46 400
-define_parameter LayoutB-tcpLabelLength 				'Layout B - TCP Label Length' 100 40 300
+define_parameter LayoutB-tcpLabelLength 				'Layout B - TCP Label Length' 100 40 500
 define_parameter LayoutB-tcpLabelSize 					'Layout B - TCP Label Font Size' 4 1 5
 define_parameter LayoutB-tcpVolumeLength 				'Layout B - TCP Volume Length' 40 40 300
 define_parameter LayoutB-tcpInputFontSize 				'Layout B - TCP Input Font Size' 1 1 5
-define_parameter LayoutB-tcpRecinputLength 				'Layout B - TCP Input Length' 100 40 300
+define_parameter LayoutB-tcpRecinputLength 				'Layout B - TCP Input Length' 100 40 400
 define_parameter LayoutB-tcpFxparmWidth 				'Layout B - FX Parameters Width' 88 50 200
 define_parameter LayoutB-tcpFxMinWidth 					'Layout B - FX Minimum Width' 30 20 200
 define_parameter LayoutB-tcpFxMaxWidth 					'Layout B - FX Maximum Width' 88 20 200
@@ -645,7 +645,7 @@ define_parameter LayoutB-hideTcpInputBlock				'Layout B - Visflag Track Input Bl
 define_parameter LayoutB-hideTcpEnv		 				'Layout B - Visflag Track Env' 0 0 15
 define_parameter LayoutB-hideTcpPhase	 				'Layout B - Visflag Track Phase' 0 0 15
 define_parameter LayoutB-hideTcpLabelsValues			'Layout B - Visflag Track Labels and Values' 0 0 15
-define_parameter LayoutB-hideTcpMeterValues				'Layout B - Visflag Track Meter Values' 8 0 15
+define_parameter LayoutB-hideTcpMeterValues				'Layout B - Visflag Track Meter Values' 4 0 15
 
 Layout "B"
 drawTcp B 1
@@ -673,11 +673,11 @@ define_parameter LayoutC-tcpFxparmVisflag2 				'Layout C - tcpFxparmVisflag2' 1 
 define_parameter LayoutC-tcpSectionBottomDiv 			'Layout C - tcpSectionBottomDiv' 2 1 3
 define_parameter LayoutC-sectionLeftW 					'Layout C - Left Section Width' 75 46 400
 define_parameter LayoutC-sectionRightW 					'Layout C - Right Section Width' 75 46 400
-define_parameter LayoutC-tcpLabelLength 				'Layout C - TCP Label Length' 140 40 300
+define_parameter LayoutC-tcpLabelLength 				'Layout C - TCP Label Length' 140 40 500
 define_parameter LayoutC-tcpLabelSize 					'Layout C - TCP Label Font Size' 4 1 5
 define_parameter LayoutC-tcpVolumeLength 				'Layout C - TCP Volume Length' 140 40 300
 define_parameter LayoutC-tcpInputFontSize 				'Layout C - TCP Input Font Size' 1 1 5
-define_parameter LayoutC-tcpRecinputLength 				'Layout C - TCP Input Length' 140 40 300
+define_parameter LayoutC-tcpRecinputLength 				'Layout C - TCP Input Length' 140 40 400
 define_parameter LayoutC-tcpFxparmWidth 				'Layout C - FX Parameters Width' 88 50 200
 define_parameter LayoutC-tcpFxMinWidth 					'Layout C - FX Minimum Width' 30 20 200
 define_parameter LayoutC-tcpFxMaxWidth 					'Layout C - FX Maximum Width' 88 20 200
@@ -937,7 +937,7 @@ endmacro
 
 define_parameter indentEnvcp 						'Env inherit track indent' 1 0 1
 define_parameter showEnvValue 						'Show envelope value' 1 0 1
-define_parameter envcpLabelLength 					'Env Label Length' 160 40 300
+define_parameter envcpLabelLength 					'Env Label Length' 160 40 500
 define_parameter envcpFaderLength 					'Env Fader Length' 100 40 300
 define_parameter envcpFontSize 						'Env Label Font Size' 2 1 5
 define_parameter envcpDivOpacity 					'Env Div Opacity' 80 0 255
@@ -1455,9 +1455,9 @@ set mcp.size 								+ + [mcpWidth 0 0 minH{0}] [sidebarWidth] * Scale [0 360]
 
 ;--Custom BGs--
 
-custom mcp.custom.tcpSelBox
-	set mcp.custom.tcpSelBox 				!track_selected [0] selectStrength{0}>0 + [0 0 mcp.size{0} 0 0 0 1 1] * Scale [0 0 0 360] [0]
-	set mcp.custom.tcpSelBox.color 			+ * / selectStrength{0} 100 [0 0 0 0 0 0 0 255] [0 0 0 0 255 255 255]	
+custom mcp.custom.mcpSelBox
+	set mcp.custom.mcpSelBox 				!track_selected [0] selectStrength{0}>0 + [0 0 mcp.size{0} 0 0 0 1 1] * Scale [0 0 0 360] [0]
+	set mcp.custom.mcpSelBox.color 			+ * / selectStrength{0} 100 [0 0 0 0 0 0 0 255] [0 0 0 0 255 255 255]	
 
 custom mcp.custom.mcpColBox
 	set mcp.custom.mcpColBox 				!customColorDepth{0} [0] + [0 0 mcp.size{0} 0 0 0 1 1]  * Scale [0 0 0 360]
@@ -1807,7 +1807,7 @@ endmacro
 
 define_parameter transMargin 				'Transport Margins' 6 0 12
 define_parameter transStatusWidth 			'Status Width' 450 150 700
-define_parameter transRateFaderWidth 		'Rate Width' 38 38 400
+define_parameter transRateFaderWidth 		'Rate Width' 100 100 400
 define_parameter transSelectionWidth 		'Selection Width' 350 150 700
 
 
@@ -1859,8 +1859,8 @@ custom trans.custom.sectionBpm				'' 0 '' 'transSectionBg'
 custom trans.custom.sectionSig				'' 0 '' 'transSectionBg'
 custom trans.custom.sectionSel				'' 0 '' 'transSectionBg'
 
-	set rateFaderSwapW						100
-	set transSectionRateW					+ transRateFaderWidth{0} transRateFaderWidth{0}>rateFaderSwapW{0} 0 60
+	set transRateFaderWidth					transRateFaderWidth{0}=100 38
+	set transSectionRateW					+ transRateFaderWidth{0} transRateFaderWidth{0}>100 0 60
 	set sectionRightW						- w + + trans.custom.sectionButtons{2} trans.custom.sectionStatus{2} * Scale + transMargin transMargin
 	set transDoubleH						* Scale + 72 transMargin
 	set trans.custom.sectionRight			h>transDoubleH{0} + [0 0 w h] + [0 trans.custom.sectionLeft{3}] * Scale [0 transMargin{0}] \
@@ -1875,11 +1875,11 @@ set hide_trans.custom.sectionRate 			!trans_flags&2 1 0
 transFollow trans.custom.sectionRate 		transSectionRateW{0} 36
 	set trans.custom.sectionRate.color		?visSections [0 0 0 0 100 255 100 80] [0 0 0 1 0 0 0 0]
 	set trans.rate.fader 					!trans.custom.sectionRate{2} [0] + [trans.custom.sectionRate trans.custom.sectionRate] \
-												* Scale + [0 0 transRateFaderWidth{0}] transRateFaderWidth{0}>rateFaderSwapW{0} [0 16 0 20] [0 0 0 36]
+												* Scale + [0 0 transRateFaderWidth{0}] transRateFaderWidth{0}>100 [0 16 0 20] [0 0 0 36]
 	custom trans.custom.rateFaderBg			'' 0 '' 'transRateFaderBg'
-	set trans.custom.rateFaderBg			transRateFaderWidth{0}>rateFaderSwapW{0} trans.rate.fader [0]
-	set trans.rate.fader.fadermode 			transRateFaderWidth{0}>rateFaderSwapW{0} [0] [1]
-	set trans.rate							!trans.custom.sectionRate{2} [0] transRateFaderWidth{0}>rateFaderSwapW{0} + + [trans.custom.sectionRate trans.custom.sectionRate] * Scale [-40 2 80 16] * 0.5 [trans.custom.sectionRate{2}] \
+	set trans.custom.rateFaderBg			transRateFaderWidth{0}>100 trans.rate.fader [0]
+	set trans.rate.fader.fadermode 			transRateFaderWidth{0}>100 [0] [1]
+	set trans.rate							!trans.custom.sectionRate{2} [0] transRateFaderWidth{0}>100 + + [trans.custom.sectionRate trans.custom.sectionRate] * Scale [-40 2 80 16] * 0.5 [trans.custom.sectionRate{2}] \
 												+ + [trans.rate.fader trans.rate.fader] * Scale [0 0 60 36] [trans.rate.fader{2}}]
 	set trans.rate.margin 					[0 0 0 0 0]
 	set trans.rate.font						+ [2] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
@@ -2018,4 +2018,4 @@ layout_dpi_translate 	'' 			1.74 	'200%_A'
 
 
 
-define_parameter themeVersionDate		'Theme Version Date' 231109 231109 231109
+define_parameter themeVersionDate		'Theme Version Date' 231210 231210 231210
