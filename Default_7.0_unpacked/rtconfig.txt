@@ -1939,6 +1939,7 @@ endLayout
 Layout "50%_A"
 	set tcp.label  			.
 	set mcp.label  			.
+	set envcp.label			.
 	set master.mcp.label 	.
 	set master.tcp.label 	.
 	set trans.status 		.
@@ -1947,6 +1948,7 @@ EndLayout
 Layout "75%_A"
 	set tcp.label  			.
 	set mcp.label  			.
+	set envcp.label			.
 	set master.mcp.label 	.
 	set master.tcp.label 	.	
 	set trans.status 		.
