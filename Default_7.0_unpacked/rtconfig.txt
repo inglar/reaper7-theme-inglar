@@ -198,6 +198,12 @@ define_parameter tcpFlowLocation7				'TCP flow location 7' 7 1 10
 define_parameter tcpFlowLocation8				'TCP flow location 8' 8 1 10
 define_parameter tcpFlowLocation9				'TCP flow location 9' 9 1 10
 define_parameter tcpFlowLocation10				'TCP flow location 10' 10 1 10
+define_parameter tcpFxparmMinWidth 				'TCP FX Parameters Minimum Width' 60 50 200
+define_parameter tcpFxparmMaxWidth 				'TCP FX Parameters Maximum Width' 88 50 200
+define_parameter tcpFxMinWidth 					'TCP FX Minimum Width' 30 20 200
+define_parameter tcpFxMaxWidth 					'TCP FX Maximum Width' 88 20 200
+define_parameter tcpSendMinWidth 				'TCP Send Minimum Width' 26 26 200
+define_parameter tcpSendMaxWidth 				'TCP Send Maximum Width' 88 26 200
 
 
 macro drawTcp thisLayout Scale 
@@ -527,21 +533,21 @@ custom tcp.custom.tcpBgBox
 	
 assignLoc tcp.fxparm Layout##thisLayout##-tcpFxparmLocation
 	set tcp.fxparm.margin 						* Scale [3 0 4 0 0 0 0 4]
-	set Layout##thisLayout##-tcpFxparmWidth		Layout##thisLayout##-tcpFxparmWidth{0}>tcp.fxparm{2} tcp.fxparm{2}
-	set tcp.fxparm.font 						+ * Scale [0 24 60 Layout##thisLayout##-tcpFxparmWidth{0}] Scale{0}==1 [1] Scale{0}==1.5 [6] [11]
+	set tcpFxparmMaxWidth							tcpFxparmMaxWidth{0}>tcp.fxparm{2} tcp.fxparm{2}
+	set tcp.fxparm.font 						+ * Scale [0 24 tcpFxparmMinWidth{0} tcpFxparmMaxWidth{0}] Scale{0}==1 [1] Scale{0}==1.5 [6] [11]
 		set tcp.fxparm.font 					os_type==0 Scale{0}==2.0 + [0 0 0 0 -4]
 		set tcp.fxparm.font 					os_type==0 Scale{0}==1.5 + [0 0 0 0 -3]
 	set tcp.fxparm.visflags						[1 Layout##thisLayout##-tcpFxparmVisflag1 Layout##thisLayout##-tcpFxparmVisflag2]
 
 assignLoc tcp.fxlist Layout##thisLayout##-tcpFxLocation
 	set tcp.fxlist								!tcp_fxlist_enabled{0} [0] . ; if disabled in options
-	set tcp.fxlist.font 						+ * Scale [0 18 Layout##thisLayout##-tcpFxMinWidth{0} Layout##thisLayout##-tcpFxMaxWidth{0}] + [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set tcp.fxlist.font 						+ * Scale [0 18 tcpFxMinWidth{0} tcpFxMaxWidth{0}] + [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set tcp.fxlist.margin						* Scale [3 0 4 6 0.5 0 20 sectionMargin{0}] 	
 
 assignLoc tcp.sendlist Layout##thisLayout##-tcpSendLocation
 set tcp.sendlist								!tcp_sends_enabled{0} [0] . ; if disabled in options
 	set tcp.sendlist.margin 					* Scale [2 0 0 0 0 0 0 sectionMargin{0}]
-	set tcp.sendlist.font 						+ * Scale [0 20 26 Layout##thisLayout##-tcpSendMaxWidth{0}] + [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set tcp.sendlist.font 						+ * Scale [0 20 tcpSendMinWidth{0} tcpSendMaxWidth{0}] + [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 
 assignLoc tcp.fxembed Layout##thisLayout##-tcpFxembedLocation	
 	set tcp.fxembedheader.color					[200 200 200]
@@ -575,10 +581,6 @@ define_parameter LayoutA-tcpLabelSize 					'Layout A - TCP Label Font Size' 4 1 
 define_parameter LayoutA-tcpVolumeLength 				'Layout A - TCP Volume Length' 40 40 300
 define_parameter LayoutA-tcpInputFontSize 				'Layout A - TCP Input Font Size' 1 1 5
 define_parameter LayoutA-tcpRecinputLength 				'Layout A - TCP Input Length' 100 40 400
-define_parameter LayoutA-tcpFxparmWidth 				'Layout A - FX Parameters Width' 88 50 200
-define_parameter LayoutA-tcpFxMinWidth 					'Layout A - FX Minimum Width' 30 20 200
-define_parameter LayoutA-tcpFxMaxWidth 					'Layout A - FX Maximum Width' 88 20 200
-define_parameter LayoutA-tcpSendMaxWidth 				'Layout A - Send Maximum Width' 88 26 200
 define_parameter LayoutA-tcpMeterWidth 					'Layout A - TCP Meter Width' 20 10 300
 define_parameter LayoutA-tcpMeterBorder 				'Layout A - TCP Meter Border' 2 0 8
 
@@ -627,10 +629,6 @@ define_parameter LayoutB-tcpLabelSize 					'Layout B - TCP Label Font Size' 4 1 
 define_parameter LayoutB-tcpVolumeLength 				'Layout B - TCP Volume Length' 40 40 300
 define_parameter LayoutB-tcpInputFontSize 				'Layout B - TCP Input Font Size' 1 1 5
 define_parameter LayoutB-tcpRecinputLength 				'Layout B - TCP Input Length' 100 40 400
-define_parameter LayoutB-tcpFxparmWidth 				'Layout B - FX Parameters Width' 88 50 200
-define_parameter LayoutB-tcpFxMinWidth 					'Layout B - FX Minimum Width' 30 20 200
-define_parameter LayoutB-tcpFxMaxWidth 					'Layout B - FX Maximum Width' 88 20 200
-define_parameter LayoutB-tcpSendMaxWidth 				'Layout B - Send Maximum Width' 88 26 200
 define_parameter LayoutB-tcpMeterWidth 					'Layout B - TCP Meter Width' 20 10 300
 define_parameter LayoutB-tcpMeterBorder 				'Layout B - TCP Meter Border' 2 0 8
 
@@ -678,10 +676,6 @@ define_parameter LayoutC-tcpLabelSize 					'Layout C - TCP Label Font Size' 4 1 
 define_parameter LayoutC-tcpVolumeLength 				'Layout C - TCP Volume Length' 140 40 300
 define_parameter LayoutC-tcpInputFontSize 				'Layout C - TCP Input Font Size' 1 1 5
 define_parameter LayoutC-tcpRecinputLength 				'Layout C - TCP Input Length' 140 40 400
-define_parameter LayoutC-tcpFxparmWidth 				'Layout C - FX Parameters Width' 88 50 200
-define_parameter LayoutC-tcpFxMinWidth 					'Layout C - FX Minimum Width' 30 20 200
-define_parameter LayoutC-tcpFxMaxWidth 					'Layout C - FX Maximum Width' 88 20 200
-define_parameter LayoutC-tcpSendMaxWidth 				'Layout C - Send Maximum Width' 88 26 200
 define_parameter LayoutC-tcpMeterWidth 					'Layout C - TCP Meter Width' 100 10 300
 define_parameter LayoutC-tcpMeterBorder 				'Layout C - TCP Meter Border' 2 0 8
 
@@ -869,7 +863,7 @@ custom master.tcp.custom.sectionBottom
 
 set master.tcp.fxparm							masterTcpSectionBottomMargin
 	set master.tcp.fxparm.margin 				* Scale [3 0 4 0 1 0 0 4]
-	set master.tcp.fxparm.font 					+ * Scale [0 24 60 LayoutA-tcpFxparmWidth{0}] + [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set master.tcp.fxparm.font 					+ * Scale [0 24 tcpFxparmMinWidth{0} tcpFxparmMaxWidth{0}] + [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	
 endMacro
 
@@ -2020,4 +2014,4 @@ layout_dpi_translate 	'' 			1.74 	'200%_A'
 
 
 
-define_parameter themeVersionDate		'Theme Version Date' 231210 231210 231210
+define_parameter themeVersionDate		'Theme Version Date' 231223 231223 231223
