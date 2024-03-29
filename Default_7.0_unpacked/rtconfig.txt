@@ -1885,7 +1885,7 @@ define_parameter transMargin 				'Transport Margins' 6 0 12
 define_parameter transStatusWidth 			'Status Width' 450 150 700
 define_parameter transRateFaderWidth 		'Rate Width' 100 100 400
 define_parameter transSelectionWidth 		'Selection Width' 350 150 700
-define_parameter transSelectionFontSize 	'Selection Font Size' 3 1 5
+define_parameter transSelectionFontSize 	'Selection Font Size' 4 1 5
 
 
 Macro drawTrans Scale
