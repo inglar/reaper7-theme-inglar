@@ -178,7 +178,7 @@ endmacro
 
 ;-- GLOABL TCP PARAMS --
 
-define_parameter sectionMargin 					'Section Margins' 6 0 12
+define_parameter sectionMargin 					'Section Margins' 6 2 12
 define_parameter xMargin 						'X-Axis spacing' 6 2 12
 define_parameter yMargin 						'Y-Axis spacing' 6 2 12
 define_parameter tcpfolderIndentSize			'TCP Folder Indent' 20 0 40
@@ -203,7 +203,7 @@ define_parameter tcpFxparmMaxWidth 				'TCP FX Parameters Maximum Width' 88 50 2
 define_parameter tcpFxMinWidth 					'TCP FX Minimum Width' 30 20 200
 define_parameter tcpFxMaxWidth 					'TCP FX Maximum Width' 88 20 200
 define_parameter tcpSendMinWidth 				'TCP Send Minimum Width' 26 26 200
-define_parameter tcpSendMaxWidth 				'TCP Send Maximum Width' 88 26 200
+define_parameter tcpSendMaxWidth 				'TCP Send Maximum Width' 88 30 200
 
 
 macro drawTcp thisLayout Scale 
@@ -587,12 +587,12 @@ define_parameter LayoutA-tcpMeterBorder 				'Layout A - TCP Meter Border' 2 0 8
 define_parameter LayoutA-hideTcpLabelBlock 				'Layout A - Visflag Track Label Block' 0 0 15
 define_parameter LayoutA-hideTcpRecmon 					'Layout A - Visflag Track Recmon' 4 0 15
 define_parameter LayoutA-hideTcpMSBlock					'Layout A - Visflag Track MS Block' 0 0 15		
-define_parameter LayoutA-hideTcpIo 						'Layout A - Visflag Track Io' 0 0 15	
+define_parameter LayoutA-hideTcpIo 						'Layout A - Visflag Track Io' 1 0 15	
 define_parameter LayoutA-hideTcpFxBlock					'Layout A - Visflag Track Fx Block' 0 0 15	
 define_parameter LayoutA-hideTcpPanBlock 				'Layout A - Visflag Track Pan Block' 1 0 15	
 define_parameter LayoutA-hideTcpRecmode					'Layout A - Visflag Track Recmode' 4 0 15	
 define_parameter LayoutA-hideTcpInputBlock				'Layout A - Visflag Track Input Block' 4 0 15	
-define_parameter LayoutA-hideTcpEnv		 				'Layout A - Visflag Track Env' 1 0 15
+define_parameter LayoutA-hideTcpEnv		 				'Layout A - Visflag Track Env' 0 0 15
 define_parameter LayoutA-hideTcpPhase	 				'Layout A - Visflag Track Phase' 1 0 15
 define_parameter LayoutA-hideTcpLabelsValues			'Layout A - Visflag Track Labels and Values' 8 0 15
 define_parameter LayoutA-hideTcpMeterValues				'Layout A - Visflag Track Meter Values' 4 0 15
@@ -1046,6 +1046,29 @@ define_parameter mcpBgColR 					'MCP background colour' 129 0 255
 define_parameter mcpBgColG 					'MCP background colour G' 137 0 255
 define_parameter mcpBgColB 					'MCP background colour B' 137 0 255
 define_parameter mcpfolderBalanceType		'MCP Folder Balance Type' 0 0 1
+define_parameter mcpStripFlowLocation1		'MCP Strip flow location 1' 1 1 11
+define_parameter mcpStripFlowLocation2		'MCP Strip flow location 2' 6 1 11
+define_parameter mcpStripFlowLocation3		'MCP Strip flow location 3' 11 1 11
+define_parameter mcpStripFlowLocation4		'MCP Strip flow location 4' 2 1 11
+define_parameter mcpStripFlowLocation5		'MCP Strip flow location 5' 3 1 11
+define_parameter mcpStripFlowLocation6		'MCP Strip flow location 6' 4 1 11
+define_parameter mcpStripFlowLocation7		'MCP Strip flow location 7' 5 1 11
+define_parameter mcpStripFlowLocation8		'MCP Strip flow location 8' 8 1 11
+define_parameter mcpStripFlowLocation9		'MCP Strip flow location 9' 7 1 11
+define_parameter mcpStripFlowLocation10		'MCP Strip flow location 10' 9 1 11
+define_parameter mcpStripFlowLocation11		'MCP Strip flow location 11' 10 1 11
+
+; 1: label block
+; 2: volume
+; 3: M&S block
+; 4: io
+; 5: fx block
+; 6: pan block
+; 7: recmode
+; 8: input block
+; 9: env
+; 10: phase
+; 11: meter
 
 
 macro mcpFollow this thisW thisH yOffs noSpace Form
@@ -1069,6 +1092,79 @@ macro mcpFollow this thisW thisH yOffs noSpace Form
 endMacro
 
 
+
+
+
+
+
+macro stackMcpStripProxy index
+
+	set proxy##index 	mcpStripFlowLocation##index==1 mcpStripLabelBlock	\
+						mcpStripFlowLocation##index==2 mcpStripVolumeBlock	\
+						mcpStripFlowLocation##index==3 mcpStripMSBlock	\
+						mcpStripFlowLocation##index==4 mcp.io	\
+						mcpStripFlowLocation##index==5 mcpStripFxBlock	\
+						mcpStripFlowLocation##index==6 mcpStripPanBlock	\
+						mcpStripFlowLocation##index==7 mcp.custom.recmodeBg_v	\
+						mcpStripFlowLocation##index==8 mcpStripInputBlock	\
+						mcpStripFlowLocation##index==9 mcp.env \
+						mcpStripFlowLocation##index==10 mcp.phase \
+						mcpStripFlowLocation##index==11 mcpStripMeterBlock
+						
+	set darkBg##index  	mcpStripFlowLocation##index==1 1	\
+						mcpStripFlowLocation##index==2 1	\
+						mcpStripFlowLocation##index==3 0	\
+						mcpStripFlowLocation##index==4 0	\
+						mcpStripFlowLocation##index==5 0	\
+						mcpStripFlowLocation##index==6 1	\
+						mcpStripFlowLocation##index==7 0	\
+						mcpStripFlowLocation##index==8 0	\
+						mcpStripFlowLocation##index==9 0 	\
+						mcpStripFlowLocation##index==10 0 	\
+						mcpStripFlowLocation##index==11 1
+	
+	set thisHs 			* Scale proxy##index{3}
+	set thisWs 			* Scale proxy##index{2}
+	set thisYMargin 	* Scale darkBg##index{0}==previousDarkBg{0} 6 12
+	
+	set proxy##index  	+ + [sidebarWidth{0}] / - [stripW] [thisWs] 2 - - [0 previous thisWs thisHs] [0 thisHs] [0 thisYMargin] 
+	
+; -- cull if it extends above the height of the panel --	
+	set proxy##index 	proxy##index{1}<thisYMargin{0} \
+							[proxy##index proxy##index 0 0] \
+							!previous{3} [proxy##index proxy##index 0 0] . ; cull method is to set width and height to zero
+	
+; -- cull if it is itself too tall for the section
+	set hMinusIdx 		- - h stripSectionBottomH{0} thisYMargin{0}
+	set proxy##index 	proxy##index{3}>hMinusIdx{0} [proxy##index proxy##index 0 0] . 
+	
+; -- cull if previous element is zero height
+	set proxy##index 	previous{3}==0 [proxy##index proxy##index 0 0] .
+	
+; -- this is the new previous	
+	set previous 		proxy##index
+	set previousIndex	index
+	set previousDarkBg darkBg##index
+	
+endmacro
+
+macro attachMcpStripProxy index
+	set mcpStripLabelBlock 		mcpForm{0}==1 mcpStripFlowLocation##index==1 proxy##index
+	set mcpStripVolumeBlock		mcpForm{0}==1 mcpStripFlowLocation##index==2 proxy##index
+	set mcpStripMSBlock 		mcpForm{0}==1 mcpStripFlowLocation##index==3 proxy##index
+	set mcp.io 					mcpForm{0}==1 mcpStripFlowLocation##index==4 proxy##index
+	set mcpStripFxBlock 		mcpForm{0}==1 mcpStripFlowLocation##index==5 proxy##index
+	set mcpStripPanBlock 		mcpForm{0}==1 mcpStripFlowLocation##index==6 proxy##index
+	set mcp.custom.recmodeBg_v 	mcpForm{0}==1 mcpStripFlowLocation##index==7 proxy##index
+	set mcpStripInputBlock 		mcpForm{0}==1 mcpStripFlowLocation##index==8 proxy##index
+	set mcp.env 				mcpForm{0}==1 mcpStripFlowLocation##index==9 proxy##index
+	set mcp.phase 				mcpForm{0}==1 mcpStripFlowLocation##index==10 proxy##index
+	set mcpStripMeterBlock		mcpForm{0}==1 mcpStripFlowLocation##index==11 proxy##index
+endmacro
+
+
+
+
 macro drawMcp thisLayout Scale
 
 ;-- HOUSEKEEPING --
@@ -1077,27 +1173,15 @@ clear mcp.*
 
 set thisMcpfolderIndent						* folderdepth mcpfolderIndentSize
 set hAfterIndent							- h * Scale thisMcpfolderIndent{0}
-
-set mcpStripInputHeight						Layout##thisLayout##-mcpStripInputHeight{0}==30 0 Layout##thisLayout##-mcpStripInputHeight ; interpret that minimum height means hide it
-set mcpStripVolumeHeight					* Scale Layout##thisLayout##-mcpStripVolumeHeight==80 20 Layout##thisLayout##-mcpStripVolumeHeight ; convert to a knob below 80
-set mcpStripVolumeHeight					hAfterIndent{0}<Layout##thisLayout##-mcpStripVolKnobAtH{0} * Scale 20 . ; convert to a knob below mcpStripVolKnobAtH
-
 set mcpNchanGrowPx							tracknch<3 0 * - tracknch 2 ?recarm Layout##thisLayout##-mcpNchanGrowRecarm ?track_selected Layout##thisLayout##-mcpNchanGrowSel Layout##thisLayout##-mcpNchanGrow
 set mcpWidth 								* Scale + mcpNchanGrowPx{0} ?recarm Layout##thisLayout##-mcpWidthRecarm ?track_selected Layout##thisLayout##-mcpWidthSel Layout##thisLayout##-mcpWidth
 set mcpFormW								* Scale [52 88]
 set mcpForm									mcpWidth{0}<mcpFormW{0} [1] mcpWidth{0}<mcpFormW{1} [2] [3] ; 1=Strip, 2=Intermediate, 3=Normal
 set addSidebar								?recarm ?Layout##thisLayout##-mcpSidebarRecarm 1 0 ?track_selected ?Layout##thisLayout##-mcpSidebarSel 1 0 ?Layout##thisLayout##-mcpSidebar 1 0
-set sidebarWidth							* Scale ?addSidebar{0} Layout##thisLayout##-sidebarWidth 0
-												
+set sidebarWidth							* Scale ?addSidebar{0} Layout##thisLayout##-sidebarWidth 0	
 
 
 ;-- SECTIONS --
-
-; custom mcp.custom.measure
-	; set mcp.custom.measure.color [0 0 0 0 255 0 0 255]
-	; set mcp.custom.measure [0 0 20 hAfterIndent{0}]
-	; front mcp.custom.measure
-
 
 custom mcp.custom.mcpDiv
 	set mcp.custom.mcpDiv 					- [0 0 1 h] * Scale [0 0 0 thisMcpfolderIndent{0}]
@@ -1107,13 +1191,11 @@ custom mcp.custom.mcpDiv
 set sectionBottomH							* Scale + 44 thisMcpfolderIndent{0} 
 set maxSectionBottomH						* Scale + 44 * mcp_maxfolderdepth mcpfolderIndentSize
 set sectionBottomH							?mcpfolderBalanceType{0} maxSectionBottomH  .
-set stripSectionBottomH						* Scale + + 20 Layout##thisLayout##-mcpStripLabelHeight * mcp_maxfolderdepth mcpfolderIndentSize
+set stripSectionBottomH						* Scale + 20 * folderdepth mcpfolderIndentSize
 
 ; calculate sectionButtons height
 set mcpIntermediateSectionButtonsH			hAfterIndent{0}<Layout##thisLayout##-mcpInterShowSecButtons{0} 0 * Scale !Layout##thisLayout##-verboseMcp{0} 92 102
-set mcpStripSectionButtonsH					* Scale hAfterIndent{0}<Layout##thisLayout##-mcpStripSecButAtH{0} 52 \
-												+ + !Layout##thisLayout##-verboseMcp{0} 120 130 ?Layout##thisLayout##-mcpStripShowEnv{0} !Layout##thisLayout##-verboseMcp{0} 26 38 0 \
-												?Layout##thisLayout##-mcpStripShowPhase{0} 22 0
+set mcpStripSectionButtonsH					* Scale + + !Layout##thisLayout##-verboseMcp{0} 120 130 !Layout##thisLayout##-verboseMcp{0} 26 38
 
 set centW									* 0.5 mcpWidth{0}											
 set firstThirdW								+ sidebarWidth * 0.3333 mcpWidth{0}
@@ -1124,6 +1206,7 @@ set secondThirdW							+ sidebarWidth * 0.6666 mcpWidth{0}
 ;--Top Section--
 
 custom mcp.custom.sectionTop 
+set mcp.custom.sectionTop.color 			?visSections [0 0 0 0 255 100 100 150] [0 0 0 1 0 0 0 0]
 custom mcp.custom.recinputBg_h				'' 0 '' 'dropdownBg_h'
 custom mcp.custom.recinputBg_v				'' 0 '' 'dropdownBg_v'
 custom mcp.custom.recmodeBg_h				'' 0 '' 'dropdownBg_h'
@@ -1149,23 +1232,8 @@ set mcp.custom.recmodeBg_v					mcpForm{0}==2 mcp.custom.sectionTop{3}==0 [0] + [
 set mcp.recmode								mcpForm{0}==2 mcp.custom.recmodeBg_v
 set mcp.fxin								mcpForm{0}==2 mcp.custom.sectionTop{3}==0 [0] + + [mcp.recmode mcp.recmode] [0 mcp.recmode{3}] * Scale [0 6 20 20]
 
-; Strip Width
-set mcp.custom.sectionTop					mcpForm{0}==1 + [sidebarWidth 0 mcpWidth{0}] * Scale hAfterIndent{0}<Layout##thisLayout##-mcpStripSecInAtH{0} [0] \
-												+ + + ?Layout##thisLayout##-mcpStripShowRecmode{0} [0 0 0 46] [0] \
-												?Layout##thisLayout##-mcpStripShowFxIn{0} [0 0 0 26] [0] [0 0 0 mcpStripInputHeight{0}] mcpStripInputHeight{0}>0 [0 0 0 6] [0 0 0 0]
-set sectionTopCentW							* 0.5 mcp.custom.sectionTop{2}
-set mcp.custom.recinputBg_h					mcpForm{0}==1 [0]
-set mcp.custom.recmodeBg_h					mcpForm{0}==1 [0]												
-set mcp.custom.recinputBg_v					mcpForm{0}==1 !mcp.custom.sectionTop{3} [0] + + [mcp.custom.sectionTop] [sectionTopCentW{0}] * Scale [-10 6 20 mcpStripInputHeight{0}]
-set mcp.recinput							mcpForm{0}==1 mcp.custom.recinputBg_v
-set mcp.custom.recmodeBg_v					mcpForm{0}==1 !mcp.custom.sectionTop{3} [0] + + + [mcp.recinput mcp.recinput] [0 mcp.recinput{3}] mcp.recinput{3}>0 * Scale [0 6] [0] ?Layout##thisLayout##-mcpStripShowRecmode{0} * Scale [0 0 20 40] [0]
-set mcp.recmode								mcpForm{0}==1 mcp.custom.recmodeBg_v
-set mcp.fxin								mcpForm{0}==1 !mcp.custom.sectionTop{3} [0] + + [mcp.recmode mcp.recmode] [0 mcp.recmode{3}] ?Layout##thisLayout##-mcpStripShowFxIn{0} * Scale mcp.recmode{3}>0 [0 6 20 20] [0 0 20 20] [0] 
+; Strip Width - strip doesn't use top section
 
-set mcp.custom.sectionTop.color 			?visSections [0 0 0 0 255 100 100 150] [0 0 0 1 0 0 0 0]
-set mcp.recinput.font						+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
-set mcp.recinput.color 						* textBrightnessMult{0} [235 235 235] 
-set mcp.recinput.margin						* Scale mcp.recinput{3}>mcp.recinput{2} [1 4 0 20] [4 1 20 0] 
 
 
 
@@ -1214,35 +1282,13 @@ set mcp.width.label							mcpForm{0}==2 mcp.custom.sectionPan{3}==0 [0] trackpan
 												+ [mcp.custom.sectionPan mcp.custom.sectionPan mcp.custom.sectionPan] * Scale [0 0 0 14] [0]
 set mcp.width.label.margin					mcpForm{0}==2 * [Scale Scale Scale Scale 1] [0 6 4 0 1]										
 
-; Strip Width
-set stripMode6yOffs							* Scale 12
-set mcpStripShowSecPan 						hAfterIndent{0}<Layout##thisLayout##-mcpStripSecPanAtH{0} 0 Layout##thisLayout##-mcpStripShowSecPan{0}       
-set mcp.custom.sectionPan 					mcpForm{0}==1 + + [sidebarWidth mcp.custom.sectionTop{3} mcpWidth{0}] [0 mcpStripSectionButtonsH{0}] \
-												!mcpStripShowSecPan{0} [0] * Scale !Layout##thisLayout##-verboseMcp{0} [0 0 0 48] [0 0 0 76]
-set mcp.custom.sectionPan.color 			mcpForm{0}==1 [0 0 0 1 38 38 38 255]
-set mcp.pan.label							mcpForm{0}==1 mcp.custom.sectionPan{3}==0 [0] !Layout##thisLayout##-verboseMcp{0} [0 mcp.custom.sectionPan] \
-												trackpanmode==6 + + [0 stripMode6yOffs{0}] [mcp.custom.sectionPan mcp.custom.sectionPan mcp.custom.sectionPan] * Scale [0 38 0 14] \
-												+ [mcp.custom.sectionPan mcp.custom.sectionPan mcp.custom.sectionPan] * Scale [0 0 0 14] 
-set mcp.pan.label.margin					mcpForm{0}==1 * [Scale Scale Scale Scale 1] [0 6 0 0 0.5]	
-set mcp.pan.label.color						mcpForm{0}==1 * textBrightnessMult{0} [150 150 150]	
-set mcp.pan									mcpForm{0}==1 mcp.custom.sectionPan{3}==0 [0] \
-												trackpanmode==6  + + + [0 stripMode6yOffs{0}] * Scale [0 14 0 10] [0 mcp.pan.label{3}] [mcp.custom.sectionPan mcp.custom.sectionPan mcp.custom.sectionPan] \
-												+ + [centW mcp.pan.label{3}] [mcp.custom.sectionPan mcp.pan.label] * Scale trackpanmode>=4 [-10 4 20 20] [-10 14 20 20]
-set mcp.width								mcpForm{0}==1 mcp.custom.sectionPan{3}==0 [0] \
-												trackpanmode==6 + + + [0 stripMode6yOffs{0}] * Scale [0 4 0 10] [0 mcp.pan.label{3}] [mcp.custom.sectionPan mcp.custom.sectionPan mcp.custom.sectionPan] \
-												trackpanmode>=4 + [mcp.pan mcp.pan] * Scale [0 24 20 20] [0]
-set mcp.width.label							mcpForm{0}==1 mcp.custom.sectionPan{3}==0 [0] \
-												trackpanmode==6 + [0 stripMode6yOffs{0}] !Layout##thisLayout##-verboseMcp{0} [0] + [mcp.custom.sectionPan mcp.custom.sectionPan mcp.custom.sectionPan] * Scale [0 0 0 14] \
-												trackpanmode>=4 !Layout##thisLayout##-verboseMcp{0} [0] + + [mcp.custom.sectionPan mcp.width mcp.custom.sectionPan] * Scale [0 0 0 14] [0 mcp.width{3}]
-set mcp.width.label.margin					mcpForm{0}==1 * [Scale Scale Scale Scale 1] [0 6 0 0 0.5]
-
+; Strip Width - strip pan section will be populated after the proxy stack is calculated
 
 	set mcp.custom.sectionPan.color 		?visSections{0} [0 0 0 0 100 255 100 100]
 	set mcp.pan.label.font					+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 	set mcp.pan.fadermode					trackpanmode==6 [-1] [1]
 	set mcp.width.fadermode					trackpanmode==6 [-1] [1]
-	set mcp.width.label.font				+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
-	set mcp.width.label.color				mcp.pan.label.color
+	
 
 
 
@@ -1285,35 +1331,10 @@ set mcp.fxbyp 								mcpForm{0}==2 mcpIntermediateSectionButtonsH{0}==0 [0] + +
 set mcp.env 								mcpForm{0}==2 mcpIntermediateSectionButtonsH{0}==0 [0] + + [mcp.fxbyp mcp.fxbyp] [0 mcp.fxbyp{3}] * Scale ?Layout##thisLayout##-verboseMcp{0} [0 6 20 32] [0 6 20 22]
 set mcp.phase 								mcpForm{0}==2 mcpIntermediateSectionButtonsH{0}==0 [0] + + [mcp.env mcp.env] [0 mcp.env{3}] * Scale [0 4 20 16]
 
-; Strip Width
-
-set mcp.custom.sectionButtons				mcpForm{0}==1 + [sidebarWidth mcp.custom.sectionTop{3} mcpWidth{0}] [0 0 0 mcpStripSectionButtonsH{0}]	
-set mcp.custom.sectionButtons.color			mcpForm{0}==1 [0 0 0 1 0 0 0 0]
-
-set biggestY								0
-set hide_mcp.mute							0
-set hide_mcp.solo							0
-set hide_mcp.io								0
-set hide_mcp.fxGroup						0 
-set hide_mcp.env							!Layout##thisLayout##-mcpStripShowEnv{0} 1 0
-set hide_mcp.phase							!Layout##thisLayout##-mcpStripShowPhase{0} 1 0
-
-set previous								mcpForm{0}==1 + + [mcp.custom.sectionButtons] [centW{0} mcp.custom.sectionButtons] * Scale [-10 6 0 0] ; Null object	
-mcpFollow mcp.mute							20 20 0 1 1
-mcpFollow mcp.solo							20 20 0 1 1
-mcpFollow mcp.io							20 mcpIoH{0} 0 0 1
-mcpFollow mcp.fxGroup						20 36 -2 0 1
-set mcp.fx									mcpForm{0}==1 mcp.fxGroup{3}>0 + [mcp.fxGroup mcp.fxGroup] * Scale [0 0 20 20] [0]
-set mcp.fxbyp								mcpForm{0}==1 mcp.fxGroup{3}>0 + + [mcp.fxGroup mcp.fxGroup] [0 mcp.fx{3}] * Scale [0 0 20 16] [0]
-mcpFollow mcp.env							20 mcpEnvH{0} 0 0 1
-mcpFollow mcp.phase							20 16 -2 0 1
-front mcp.solo
-set mcp.custom.sectionButtons.color			?visSections [0 0 0 0 100 100 255 150] 
-
+; Strip Width								mcp.custom.sectionButtons is the volume bg in stackMcpStripProxy
 
 
 ;--Dark Box Section--	
-
 custom mcp.custom.mcpDarkBox
 
 ; Normal Width
@@ -1337,25 +1358,12 @@ set mcp.volume.label                     	mcpForm{0}==2 !Layout##thisLayout##-ve
 set mcp.meter								mcpForm{0}==2 + + * Scale [6 6 -42 -36] [mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox] \
 												* [0 1 0 -1] [0 mcp.volume.label{3} 0 mcp.volume.label{3}]
 set mcp.volume								mcpForm{0}==2 + + [mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox 0 mcp.custom.mcpDarkBox] + [mcp.custom.mcpDarkBox{2}] * Scale [-30 6 24 -36] \
-												* [0 1 0 -1] [0 mcp.volume.label{3} 0 mcp.volume.label{3}]
-set mcpVolKnobH								* Scale 60												
+												* [0 1 0 -1] [0 mcp.volume.label{3} 0 mcp.volume.label{3}]												
 set mcp.volume								mcpForm{0}==2 mcp.volume{3}<mcpVolKnobH{0} + [. . ] * Scale [0 0 20 20] ; turn into a knob												
 set mcp.recarm								mcpForm{0}==2 + + [mcp.volume mcp.volume] * [0.5 1] [mcp.volume{2} mcp.volume{3}] * Scale [-12 4 24 20]
 set mcp.recmon								mcpForm{0}==2 + + + [mcp.meter mcp.meter] * Scale [-10 4 20 20] [0 mcp.meter{3}] * 0.5 [mcp.meter{2}]
 
-; Strip Width
-set mcp.custom.mcpDarkBox					mcpForm{0}==1 + + [sidebarWidth mcp.custom.sectionPan mcpWidth{0} h] [0 mcp.custom.sectionPan{3}] \
-														* -1 + + [0 0 0 mcp.custom.sectionPan{1}] [0 0 0 mcp.custom.sectionPan{3}] [0 0 0 stripSectionBottomH]
-set stripDarkBoxMinH						* Scale + + ?Layout##thisLayout##-mcpStripShowRecmon{0} 72 48 Layout##thisLayout##-mcpStripMeterHeight mcpStripVolumeHeight{0}
-set mcp.custom.mcpDarkBox					mcpForm{0}==1 mcp.custom.mcpDarkBox{3}<stripDarkBoxMinH{0} [. . . stripDarkBoxMinH] . .	; stop strip stretching if too short
-set mcp.meter								mcpForm{0}==1 - + mcp.custom.mcpDarkBox * Scale ?Layout##thisLayout##-mcpStripShowRecmon{0} [6 6 -12 -64] [6 6 -12 -42] \
-												+ * Scale !Layout##thisLayout##-verboseMcp{0} [0] [0 0 0 20] [0 0 0 mcpStripVolumeHeight] ; 20 will be vol label h
-set mcp.volume.label                     	mcpForm{0}==1 !Layout##thisLayout##-verboseMcp{0} [0] + + [mcp.custom.mcpDarkBox mcp.meter mcp.custom.mcpDarkBox] * Scale [0 0 0 20] [0 mcp.meter{3}]
-set mcp.volume								mcpForm{0}==1 + + + [centW mcp.custom.mcpDarkBox] [mcp.custom.mcpDarkBox mcp.custom.mcpDarkBox{3}] * Scale ?Layout##thisLayout##-mcpStripShowRecmon{0} [-12 -52 24] [-12 -30 24] \
-												* [0 -1 0 1] mcpStripVolumeHeight{0}
-set mcp.recarm								mcpForm{0}==1 + + [mcp.volume mcp.volume] * [0.5 1] [mcp.volume{2} mcp.volume{3}] * Scale [-12 8 24 20]
-set mcp.recmon								mcpForm{0}==1 ?Layout##thisLayout##-mcpStripShowRecmon{0} + + [mcp.recarm mcp.recarm] * Scale [0 4 20 20] [0 mcp.recarm{3}] [0] 
-
+; Strip Width - mcp.custom.mcpDarkBox is the meter bg in stackMcpStripProxy
 
 
 set mcp.custom.mcpDarkBox.color 			?visSections{0} [0 0 0 0 200 200 0] [0 0 0 0 38 38 38]
@@ -1393,7 +1401,7 @@ set mcp.extmixer.mode        				mcpForm{0}==3 ?addSidebar{0} [1] [-1]
 
 ; Intermediate Width
 set mcp.custom.sectionBottom				mcpForm{0}==2 + [0 mcp.custom.mcpDarkBox mcpWidth sectionBottomH] [0 mcp.custom.mcpDarkBox{3} sidebarWidth]
-set mcp.custom.mcpNameBg 					mcpForm{0}==2 + + [0 mcp.custom.sectionBottom mcpWidth] * Scale [0 0 0 24] [0 0 sidebarWidth]
+set mcp.custom.mcpNameBg 					mcpForm{0}==2 + + [0 mcp.custom.sectionBottom mcpWidth] * Scale + [0 0 0 24] [0 0 0 mcpFolderBalance{0}] [0 0 sidebarWidth]
 set mcp.label 								mcpForm{0}==2 mcp.custom.mcpNameBg
 set mcp.label.margin 						mcpForm{0}==2 * [Scale Scale Scale Scale 1] [4 0 4 0 0.5]
 set mcp.custom.mcpIdxBg 					mcpForm{0}==2 + + [0 mcp.custom.mcpNameBg mcpWidth] * Scale [0 0 0 20] [0 mcp.custom.mcpNameBg{3} sidebarWidth]
@@ -1401,21 +1409,117 @@ set mcp.custom.sidebarBg					mcpForm{0}==2 - [0 0 sidebarWidth{0} h] [0 0 0 mcp.
 set mcp.extmixer.mode        				mcpForm{0}==2 ?addSidebar{0} [1] [-1]
 
 ; Strip Width
-set mcp.custom.sectionBottom				mcpForm{0}==1 + [sidebarWidth mcp.custom.mcpDarkBox mcpWidth stripSectionBottomH] [0 mcp.custom.mcpDarkBox{3}] 
-set mcpStripLabelHeightBal					* Scale + Layout##thisLayout##-mcpStripLabelHeight * mcpfolderIndentSize - mcp_maxfolderdepth folderdepth
-set mcp.custom.mcpNameBg 					mcpForm{0}==1 [sidebarWidth mcp.custom.sectionBottom mcpWidth{0} mcpStripLabelHeightBal{0}]
-set mcp.label 								mcpForm{0}==1 + + [mcp.custom.sectionBottom] [centW] + [0 mcp.custom.mcpNameBg 0 mcp.custom.mcpNameBg] * Scale [-10 0 20]
+set mcp.custom.sectionBottom				mcpForm{0}==1 - [sidebarWidth h mcpWidth stripSectionBottomH] [0 stripSectionBottomH]
+set mcpStripLabelHeightBal					+ Layout##thisLayout##-mcpStripLabelHeight ?mcpfolderBalanceType{0} * mcpfolderIndentSize - mcp_maxfolderdepth folderdepth 0
+set mcp.custom.mcpNameBg 					mcpForm{0}==1 [0] ; in the new strip width, label isn't in bottom section
+set mcp.label 								mcpForm{0}==1 [0] ; in the new strip width, label isn't in bottom section
 set mcp.label.margin 						mcpForm{0}==1 * [Scale Scale Scale Scale 1] [0 4 0 4 0]
-set mcp.custom.mcpIdxBg 					mcpForm{0}==1 + + [0 mcp.custom.mcpNameBg mcpWidth] * Scale [0 0 0 20] [0 mcp.custom.mcpNameBg{3} sidebarWidth]
+set mcp.custom.mcpIdxBg 					mcpForm{0}==1 + [0 mcp.custom.sectionBottom w] * Scale [0 0 0 20]
+custom mcp.custom.mcpIdxDiv
+	set mcp.custom.mcpIdxDiv 				mcpForm{0}==1 [0 mcp.custom.mcpIdxBg mcp.custom.mcpIdxBg 1]
+	set mcp.custom.mcpIdxDiv.color 			* Scale [0 0 0 0 0 0 0 mcpDivOpacity{0}]
+	front mcp.custom.mcpIdxDiv
+
 set mcp.custom.sidebarBg					mcpForm{0}==1 ?addSidebar{0} [0 0 sidebarWidth{0} mcp.custom.mcpIdxBg{1}] [0]
 set mcp.extmixer.mode        				mcpForm{0}==1 ?addSidebar{0} [1] ?Layout##thisLayout##-mcpStripHideExtmixer{0} [1] [-1]
 
-set mcp.custom.sectionBottom.color 			?visSections [0 0 0 0 50 150 200 100] [0 0 0 1 0 0 0 0]												
+
+set mcpStripLabelBlockH 					+ 46 mcpStripLabelHeightBal{0} ; 46 is recarm and recmon
+set mcpStripVolumeBlockH 					Layout##thisLayout##-mcpStripVolumeHeight 
+set mcpStripVolKnobH						/ mcpVolKnobH{0} Scale
+set mcpStripVolumeBlockH					mcpStripVolumeBlockH{0}<=mcpStripVolKnobH{0} 32
+set mcpStripInputBlockH 					+ Layout##thisLayout##-mcpStripInputHeight 20
+set stripW 									- w sidebarWidth{0} 
+
+set mcpStripLabelBlock 						mcpForm{0}==1 [0 0 24 mcpStripLabelBlockH{0}]
+set mcpStripVolumeBlock						mcpForm{0}==1 [0 0 24 mcpStripVolumeBlockH{0}]
+set mcpStripMSBlock							mcpForm{0}==1 [0 0 20 40]
+set mcp.io									mcpForm{0}==1 [0 0 20 mcpIoH{0}]
+set mcpStripFxBlock							mcpForm{0}==1 [0 0 20 36]
+set mcpStripPanBlock						mcpForm{0}==1 !Layout##thisLayout##-verboseMcp{0} [0 0 20 52] [0 0 20 82]
+set mcp.custom.recmodeBg_v					mcpForm{0}==1 [0 0 20 42]
+set mcpStripInputBlock						mcpForm{0}==1 [0 0 20 mcpStripInputBlockH{0}]
+set mcp.env 								mcpForm{0}==1 [0 0 20 mcpEnvH{0}]
+set mcp.phase 								mcpForm{0}==1 [0 0 20 16]
+set mcpStripMeterBlock 						mcpForm{0}==1 [0 0 24 Layout##thisLayout##-mcpStripMeterHeight]
+set previous 								[0 mcp.custom.sectionBottom 0 20] 
+set previousDarkBg							1
+
+stackMcpStripProxy 1
+stackMcpStripProxy 2
+stackMcpStripProxy 3
+stackMcpStripProxy 4
+stackMcpStripProxy 5
+stackMcpStripProxy 6
+stackMcpStripProxy 7
+stackMcpStripProxy 8
+stackMcpStripProxy 9
+stackMcpStripProxy 10
+stackMcpStripProxy 11
+
+attachMcpStripProxy 1
+attachMcpStripProxy 2
+attachMcpStripProxy 3
+attachMcpStripProxy 4
+attachMcpStripProxy 5
+attachMcpStripProxy 6
+attachMcpStripProxy 7
+attachMcpStripProxy 8
+attachMcpStripProxy 9
+attachMcpStripProxy 10
+attachMcpStripProxy 11
+
+set mcp.meter								mcpForm{0}==1 + [sidebarWidth{0} mcpStripMeterBlock stripW mcpStripMeterBlock] * [1 2 -2 -4] * Scale 4
+set mcp.fxin								mcpForm{0}==1 mcpStripInputBlock{3}>0 + [mcpStripInputBlock mcpStripInputBlock] * Scale [0 0 20 20]
+set mcp.custom.recinputBg_v					mcpForm{0}==1 mcpStripInputBlock{3}>0 + [mcpStripInputBlock mcpStripInputBlock] * Scale [0 20 20 Layout##thisLayout##-mcpStripInputHeight]
+set mcp.recinput							mcpForm{0}==1 mcpStripInputBlock{3}>0 mcp.custom.recinputBg_v
+set mcp.recmode								mcpForm{0}==1 mcp.custom.recmodeBg_v
+set mcp.fx									mcpForm{0}==1 mcpStripFxBlock{3}>0 + [mcpStripFxBlock mcpStripFxBlock] * Scale [0 0 20 20]
+set mcp.fxbyp								mcpForm{0}==1 mcpStripFxBlock{3}>0 + [mcp.fx mcp.fx] * Scale [0 20 20 16]
+set mcp.custom.sectionPan 					mcpForm{0}==1 + [sidebarWidth{0} mcpStripPanBlock stripW mcpStripPanBlock] [0 -6 0 12]
+set mcp.custom.sectionPan.color 			mcpForm{0}==1 [0 0 0 1 38 38 38 255]
+set mcp.custom.sectionButtons				mcpForm{0}==1 + [sidebarWidth{0}  mcpStripVolumeBlock stripW mcpStripVolumeBlock] [0 -6 0 12]
+set mcp.custom.sectionButtons.color			mcpForm{0}==1 ?visSections{0} [0 0 0 0 200 0 200] [0 0 0 0 38 38 38]
+set mcp.volume								mcpForm{0}==1 + mcp.volume{3}<mcpVolKnobH{0} [0] [0 8 0 -18] mcpStripVolumeBlock
+set mcp.recarm								mcpForm{0}==1 + + [mcpStripLabelBlock mcpStripLabelBlock] * Scale [0 -24 24 20] [0 mcpStripLabelBlock{3}]
+set mcp.recmon								mcpForm{0}==1 - - + [mcpStripLabelBlock mcp.recarm] * Scale [4 -20 20 20] [0 thisYMargin{0}]
+set mcp.custom.mcpNameBg					mcpForm{0}==1 + [sidebarWidth{0} mcpStripLabelBlock stripW mcpStripLabelBlock] * Scale [0 -6 0 12]
+set mcp.label								mcpForm{0}==1 + [mcpStripLabelBlock mcpStripLabelBlock mcpStripLabelBlock] - * Scale [0 0 0 mcpStripLabelBlockH{0}] [0 0 0 48]
+set mcp.custom.mcpDarkBox					mcpForm{0}==1 + [sidebarWidth{0} mcpStripMeterBlock stripW mcpStripMeterBlock] [0 -6 0 12]
+set mcp.meter								mcpForm{0}==1 + [sidebarWidth{0} mcp.custom.mcpDarkBox stripW mcp.custom.mcpDarkBox] * [1 2 -2 -4] * Scale 4
+set mcp.mute								mcpForm{0}==1 mcpStripMSBlock{3}>0 + [mcpStripMSBlock mcpStripMSBlock] * Scale [0 0 20 20]
+set mcp.solo								mcpForm{0}==1 mcpStripMSBlock{3}>0 + [mcp.mute mcp.mute] * Scale [0 20 20 20]
+
+set stripMode6yOffs							* Scale 12    
+set mcp.pan.label							mcpForm{0}==1 mcpStripPanBlock{3}==0 [0] !Layout##thisLayout##-verboseMcp{0} [0 mcpStripPanBlock] \
+ 												trackpanmode==6 + + [0 stripMode6yOffs{0}] [sidebarWidth{0} mcpStripPanBlock stripW] * Scale [0 38 0 14] \
+ 												+ [sidebarWidth{0} mcpStripPanBlock stripW] * Scale [0 0 0 14] 
+set mcp.pan.label.margin					mcpForm{0}==1 * [Scale Scale Scale Scale 1] [0 6 0 0 0.5]	
+set mcp.pan.label.color						mcpForm{0}==1 * textBrightnessMult{0} [150 150 150]	
+set mcp.pan									mcpForm{0}==1 mcpStripPanBlock{3}==0 [0] \
+ 												trackpanmode==6  + + + [0 stripMode6yOffs{0}] * Scale [0 14 0 10] [0 mcp.pan.label{3}] [sidebarWidth{0} mcpStripPanBlock stripW] \
+ 												+ + [0 mcp.pan.label{3}] [mcpStripPanBlock mcp.pan.label] * Scale trackpanmode>=4 [0 4 20 20] [0 14 20 20]
+set mcp.width								mcpForm{0}==1 mcpStripPanBlock{3}==0 [0] \
+ 												trackpanmode==6 + + + [0 stripMode6yOffs{0}] * Scale [0 4 0 10] [0 mcp.pan.label{3}] [sidebarWidth{0} mcpStripPanBlock stripW] \
+ 												trackpanmode>=4 + [mcp.pan mcp.pan] * Scale [0 24 20 20] [0]
+set mcp.width.label							mcpForm{0}==1 mcpStripPanBlock{3}==0 [0] \
+ 												trackpanmode==6 + [0 stripMode6yOffs{0}] !Layout##thisLayout##-verboseMcp{0} [0] + [sidebarWidth{0} mcpStripPanBlock stripW] * Scale [0 0 0 14] \
+												trackpanmode>=4 !Layout##thisLayout##-verboseMcp{0} [0] + + [sidebarWidth{0} mcp.width{1} stripW] * Scale [0 0 0 14] [0 mcp.width{3}]
+set mcp.width.label.margin					mcpForm{0}==1 * [Scale Scale Scale Scale 1] [0 6 0 0 0.5]
+
+
+
+set mcp.recinput.font						+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+set mcp.recinput.color 						* textBrightnessMult{0} [235 235 235] 
+set mcp.recinput.margin						* Scale mcp.recinput{3}>mcp.recinput{2} [1 4 0 20] [4 1 20 0] 
+set mcp.width.label.font					+ [1] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+set mcp.width.label.color					mcp.pan.label.color
 set mcp.custom.mcpNameBg.color 				?selInvertLabels{0} ?track_selected [0 0 0 0 255 255 255 100] [0 0 0 0 38 38 38] [0 0 0 0 38 38 38]
 set mcp.label.font 							+ Layout##thisLayout##-mcpLabelSize{0} Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
 set mcp.label.color 						?recarm [255 80 100] ?trackcolor_valid ?colorTrackLabels cColorTextOnDark * textBrightnessMult{0} [200 200 200] * textBrightnessMult{0} [200 200 200] 
 set mcp.label.color 						?selInvertLabels{0} ?track_selected ?recarm [180 0 10] [38 38 38] . .
-set mcp.custom.indentInfill					+ + [0 mcp.custom.sectionBottom mcpWidth mcp.custom.sectionBottom] [0 mcp.custom.mcpNameBg{3} sidebarWidth] * Scale [0 20] ; 20 is about to be the indexBg h
+set mcp.custom.indentInfill					mcpForm{0}==1 + [0 mcp.custom.sectionBottom w mcp.custom.sectionBottom] * Scale [0 20] \
+												+ + [0 mcp.custom.sectionBottom mcpWidth mcp.custom.sectionBottom] [0 mcp.custom.mcpNameBg{3} sidebarWidth] * Scale [0 20] ; 20 is about to be the indexBg h
 set mcp.custom.indentInfill.color			[0 0 0 0 51 51 51]
 set mcp.custom.mcpIdxBg.color 				?trackcolor_valid [0 0 0 0 trackcolor_r trackcolor_g trackcolor_b] [0 0 0 0 mcpBgColR mcpBgColG mcpBgColB]
 set mcp.custom.mcp_selectionDot 			!selDot{0} [0] ?track_selected [0] + * 0.5 + [mcp.custom.mcpIdxBg{2}] folderstate==1 * Scale [18] [0] + [0 mcp.custom.mcpIdxBg] * Scale [-4 -4 8 8]
@@ -1443,7 +1547,8 @@ front mcp.extmixer
 	
 set minH									mcpForm{0}==3 + + + mcp.custom.sectionTop{3} mcp.custom.sectionPan{3} maxSectionBottomH{0} * Scale 90
 set minH									mcpForm{0}==2 + + + + * Scale 100 mcp.custom.sectionTop{3} mcp.custom.sectionPan{3} maxSectionBottomH{0} mcp.custom.sectionButtons{3}
-set minH									mcpForm{0}==1 + + + + mcp.custom.sectionTop{3} mcp.custom.sectionButtons{3} mcp.custom.sectionPan{3} mcp.custom.sectionBottom{3} stripDarkBoxMinH 
+; set minH									mcpForm{0}==1 + + + + mcp.custom.sectionTop{3} mcp.custom.sectionButtons{3} mcp.custom.sectionPan{3} mcp.custom.sectionBottom{3} stripDarkBoxMinH 
+set minH									mcpForm{0}==1 0
 set mcp.size 								+ + [mcpWidth 0 0 minH{0}] [sidebarWidth] * Scale [0 360]	
 
 
@@ -1461,9 +1566,16 @@ custom mcp.custom.mcpBgBox
 	set mcp.custom.mcpBgBox 				+ [0 0 mcp.size{0} 0 0 0 1 1] * Scale [0 0 0 360]
 	set mcp.custom.mcpBgBox.color 			[0 0 0 0 mcpBgColR mcpBgColG mcpBgColB 255]
 
+
+
+
+
+
+
 endLayout
 
 endMacro
+
 
 
 
@@ -1494,19 +1606,9 @@ define_parameter LayoutA-mcpInterShowSecIn			'Layout A - mcpInterShowSecIn' 320 
 define_parameter LayoutA-mcpInterShowSecButtons		'Layout A - mcpInterShowSecButtons' 280 0 500
 define_parameter LayoutA-mcpInterShowSecPan			'Layout A - mcpInterShowSecPan' 240 0 500
 define_parameter LayoutA-mcpStripLabelHeight		'Layout A - Label Height' 88 20 300
-define_parameter LayoutA-mcpStripInputHeight		'Layout A - Record Input Height' 70 0 140
-define_parameter LayoutA-mcpStripShowRecmode		'Layout A - mcpStripShowRecmode' 1 0 1
-define_parameter LayoutA-mcpStripSecInAtH			'Layout A - mcpStripSecInAtH' 580 0 1000
-define_parameter LayoutA-mcpStripShowFxIn			'Layout A - mcpStripShowFxIn' 1 0 1
-define_parameter LayoutA-mcpStripSecButAtH			'Layout A - mcpStripSecButAtH' 440 0 1000
-define_parameter LayoutA-mcpStripShowEnv			'Layout A - mcpStripShowEnv' 1 0 1
-define_parameter LayoutA-mcpStripShowPhase			'Layout A - mcpStripShowPhase' 1 0 1
-define_parameter LayoutA-mcpStripShowSecPan			'Layout A - mcpStripShowSecPan' 1 0 1
-define_parameter LayoutA-mcpStripSecPanAtH			'Layout A - mcpStripSecPanAtH' 300 0 1000
+define_parameter LayoutA-mcpStripInputHeight		'Layout A - Record Input Height' 70 20 140
 define_parameter LayoutA-mcpStripMeterHeight		'Layout A - Meter Height' 40 20 300
-define_parameter LayoutA-mcpStripVolumeHeight		'Layout A - Volume Height' 120 80 300
-define_parameter LayoutA-mcpStripVolKnobAtH			'Layout A - mcpStripVolKnobAtH' 650 0 1000
-define_parameter LayoutA-mcpStripShowRecmon			'Layout A - mcpStripShowRecmon' 1 0 1
+define_parameter LayoutA-mcpStripVolumeHeight		'Layout A - Volume Height' 120 60 300
 define_parameter LayoutA-mcpStripHideExtmixer		'Layout A - Hide non-sidebar ExtMixer' 0 0 1
 
 drawMcp A 1
@@ -1525,7 +1627,7 @@ endLayout
 
 define_parameter LayoutB-verboseMcp 				'Layout B - Verbose MCP' 0 0 1
 define_parameter LayoutB-mcpMeterReadout			'Layout B - mcpMeterReadout' 0 0 1
-define_parameter LayoutB-mcpWidth					'Layout B - Mixer Panel Width' 32 28 140
+define_parameter LayoutB-mcpWidth					'Layout B - Mixer Panel Width' 28 28 140
 define_parameter LayoutB-mcpWidthSel				'Layout B - Selected Mixer Panel Width' 32 28 140
 define_parameter LayoutB-mcpWidthRecarm				'Layout B - Armed Mixer Panel Width' 40 28 140
 define_parameter LayoutB-mcpSidebar					'Layout B - Mixer Sidebar' 0 0 1
@@ -1550,19 +1652,9 @@ define_parameter LayoutB-mcpInterShowSecIn			'Layout B - mcpInterShowSecIn' 350 
 define_parameter LayoutB-mcpInterShowSecButtons		'Layout B - mcpInterShowSecButtons' 380 0 500
 define_parameter LayoutB-mcpInterShowSecPan			'Layout B - mcpInterShowSecPan' 300 0 500
 define_parameter LayoutB-mcpStripLabelHeight		'Layout B - Label Height' 88 0 300
-define_parameter LayoutB-mcpStripInputHeight		'Layout B - Record Input Height' 70 30 140
-define_parameter LayoutB-mcpStripShowRecmode		'Layout B - mcpStripShowRecmode' 1 0 1
-define_parameter LayoutB-mcpStripSecInAtH			'Layout B - mcpStripSecInAtH' 580 0 1000
-define_parameter LayoutB-mcpStripShowFxIn			'Layout B - mcpStripShowFxIn' 1 0 1
-define_parameter LayoutB-mcpStripSecButAtH			'Layout B - mcpStripSecButAtH' 440 0 1000
-define_parameter LayoutB-mcpStripShowEnv			'Layout B - mcpStripShowEnv' 1 0 1
-define_parameter LayoutB-mcpStripShowPhase			'Layout B - mcpStripShowPhase' 1 0 1
-define_parameter LayoutB-mcpStripShowSecPan			'Layout B - mcpStripShowSecPan' 1 0 1
-define_parameter LayoutB-mcpStripSecPanAtH			'Layout B - mcpStripSecPanAtH' 300 0 1000
+define_parameter LayoutB-mcpStripInputHeight		'Layout B - Record Input Height' 70 20 140
 define_parameter LayoutB-mcpStripMeterHeight		'Layout B - Meter Height' 20 20 300
-define_parameter LayoutB-mcpStripVolumeHeight		'Layout B - Volume Height' 80 80 300
-define_parameter LayoutB-mcpStripVolKnobAtH			'Layout B - mcpStripVolKnobAtH' 650 0 1000
-define_parameter LayoutB-mcpStripShowRecmon			'Layout B - mcpStripShowRecmon' 1 0 1
+define_parameter LayoutB-mcpStripVolumeHeight		'Layout B - Volume Height' 80 60 300
 define_parameter LayoutB-mcpStripHideExtmixer		'Layout B - Hide non-sidebar ExtMixer' 1 0 1
 
 Layout "B"
@@ -1605,19 +1697,9 @@ define_parameter LayoutC-mcpInterShowSecIn			'Layout C - mcpInterShowSecIn' 350 
 define_parameter LayoutC-mcpInterShowSecButtons		'Layout C - mcpInterShowSecButtons' 380 0 500
 define_parameter LayoutC-mcpInterShowSecPan			'Layout C - mcpInterShowSecPan' 300 0 500
 define_parameter LayoutC-mcpStripLabelHeight		'Layout C - Label Height' 88 0 300
-define_parameter LayoutC-mcpStripInputHeight		'Layout C - Record Input Height' 70 30 140
-define_parameter LayoutC-mcpStripShowRecmode		'Layout C - mcpStripShowRecmode' 1 0 1
-define_parameter LayoutC-mcpStripSecInAtH			'Layout C - mcpStripSecInAtH' 580 0 1000
-define_parameter LayoutC-mcpStripShowFxIn			'Layout C - mcpStripShowFxIn' 1 0 1
-define_parameter LayoutC-mcpStripSecButAtH			'Layout C - mcpStripSecButAtH' 440 0 1000
-define_parameter LayoutC-mcpStripShowEnv			'Layout C - mcpStripShowEnv' 1 0 1
-define_parameter LayoutC-mcpStripShowPhase			'Layout C - mcpStripShowPhase' 1 0 1
-define_parameter LayoutC-mcpStripShowSecPan			'Layout C - mcpStripShowSecPan' 1 0 1
-define_parameter LayoutC-mcpStripSecPanAtH			'Layout C - mcpStripSecPanAtH' 300 0 1000
+define_parameter LayoutC-mcpStripInputHeight		'Layout C - Record Input Height' 70 20 140
 define_parameter LayoutC-mcpStripMeterHeight		'Layout C - Meter Height' 40 20 300
-define_parameter LayoutC-mcpStripVolumeHeight		'Layout C - Volume Height' 120 80 300
-define_parameter LayoutC-mcpStripVolKnobAtH			'Layout C - mcpStripVolKnobAtH' 650 0 1000
-define_parameter LayoutC-mcpStripShowRecmon			'Layout C - mcpStripShowRecmon' 1 0 1
+define_parameter LayoutC-mcpStripVolumeHeight		'Layout C - Volume Height' 120 60 300
 define_parameter LayoutC-mcpStripHideExtmixer		'Layout C - Hide non-sidebar ExtMixer' 1 0 1
 
 Layout "C"
@@ -1803,6 +1885,7 @@ define_parameter transMargin 				'Transport Margins' 6 0 12
 define_parameter transStatusWidth 			'Status Width' 450 150 700
 define_parameter transRateFaderWidth 		'Rate Width' 100 100 400
 define_parameter transSelectionWidth 		'Selection Width' 350 150 700
+define_parameter transSelectionFontSize 	'Selection Font Size' 3 1 5
 
 
 Macro drawTrans Scale
@@ -1905,8 +1988,8 @@ set hide_trans.custom.sectionSel 			0
 transFollow trans.custom.sectionSel			transSelectionWidth{0} 36
 	set trans.sel							+ trans.custom.sectionSel * Scale [10 10 -10 -20]						
 	set trans.sel.color      	  			* textBrightnessMult{0} [160 160 160] 
-	set trans.sel.font        	 			+ [3] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
-	set trans.sel.margin					[4 30 4 10 0] ; ????
+	set trans.sel.font 						+ [transSelectionFontSize] Scale{0}==1 [0] Scale{0}==1.5 [5] [10]
+	set trans.sel.margin					[0 0 0 0 0]
 
 endMacro
 	
@@ -2014,4 +2097,4 @@ layout_dpi_translate 	'' 			1.74 	'200%_A'
 
 
 
-define_parameter themeVersionDate		'Theme Version Date' 231223 231223 231223
+define_parameter themeVersionDate		'Theme Version Date' 240314 240314 240314
